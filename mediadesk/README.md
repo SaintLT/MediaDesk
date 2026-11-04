@@ -4,8 +4,8 @@ Ticket management for a media department. Staff from any department submit reque
 assigns and completes them. React + TypeScript + Tailwind on the front end, Supabase (Auth, Postgres, Storage,
 Row Level Security) behind it, deployed on Vercel.
 
-> **Build status:** Stage 1 of 4 is in this folder (database, security, admin Edge Function, project config).
-> The React app (`src/`) arrives in Stages 2-4, and this README grows with it.
+> **Build status:** Stages 1-2 of 4 are in this folder: database, security and admin Edge Function, plus the app shell
+> (sign-in, role-aware navigation, layout). Ticket screens arrive in Stage 3, dashboard/team/reports/settings in Stage 4.
 
 ## How access control works
 
@@ -33,3 +33,10 @@ Row Level Security) behind it, deployed on Vercel.
 - Comments and attachments cannot be edited or deleted once posted (keeps the record trustworthy).
 - Tickets are cancelled, never deleted.
 - Overdue dates use the timezone stored in `app_settings` (default `UTC`; changeable in Settings in Stage 4).
+
+## Run it locally (Stage 2)
+
+1. Install Node.js 20 or newer (nodejs.org, LTS), then check with `node -v`.
+2. Copy `.env.example` to `.env.local` and fill in your Supabase project URL and **anon** key.
+3. `npm install`, then `npm run dev`, then open the address it prints (usually http://localhost:5173).
+4. Sign in with the administrator account you created. Pages other than sign-in show a "not built yet" notice until Stages 3-4.

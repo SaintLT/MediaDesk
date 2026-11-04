@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { color-scheme: dark; }
+  body { @apply bg-ink font-sans text-fog-100 antialiased; font-variant-numeric: tabular-nums; }
+  :focus-visible { outline: 2px solid theme("colors.electric.400"); outline-offset: 2px; }
+  ::selection { background: theme("colors.electric.500"); color: white; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
