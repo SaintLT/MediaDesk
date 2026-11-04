@@ -68,8 +68,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = useCallback(async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
     if (!error) return null;
-    if (error.status === 400 || /invalid login/i.test(error.message)) return "Incorrect email or password.";
-    return "Could not sign in. Check your connection and try again.";
+
+    const code = (error as { code?: string }).code ?? "";
+    const msg = error.message ?? "";
+    if (import.meta.env.DEV) console.warn("[auth] sign-in failed", { status: error.status, code, message: msg });
+
+    if (code === "email_not_confirmed" || /email not confirmed/i.test(msg))
+      return "This account's email address has not been confirmed. Ask an administrator to confirm it.";
+    if (code === "user_banned" || /banned/i.test(msg))
+      return "This account has been deactivated. Contact an administrator.";
+    if (code === "invalid_credentials" || /invalid login credentials/i.test(msg))
+      return "Incorrect email or password.";
+    if (error.status === 429) return "Too many attempts. Wait a minute and try again.";
+    if (!error.status) return "Could not reach the server. Check your connection and try again.";
+    return `Could not sign in (${code || error.status}): ${msg}`;
   }, []);
 
   const signOut = useCallback(async () => { await supabase.auth.signOut(); }, []);
