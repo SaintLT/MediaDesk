@@ -9,6 +9,11 @@ import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/NotFound";
 import SubmitTicket from "@/pages/SubmitTicket";
 import TicketList from "@/pages/TicketList";
+import TicketDetail from "@/pages/TicketDetail";
+import Dashboard from "@/pages/Dashboard";
+import Team from "@/pages/Team";
+import Reports from "@/pages/Reports";
+import Settings from "@/pages/Settings";
 
 // Stage in which each screen is built. Replace the ComingSoon element with the real page as stages land.
 const STAGE: Record<string, number> = {
@@ -18,6 +23,7 @@ const STAGE: Record<string, number> = {
 
 // Screens that are built. Anything not listed here still shows ComingSoon.
 const PAGES: Record<string, ReactNode> = {
+  "/dashboard": <Dashboard />,
   "/submit": <SubmitTicket />,
   "/tickets": (
     <TicketList scope="all" title="All Tickets" subtitle="Every request across departments, in queue order." />
@@ -28,6 +34,9 @@ const PAGES: Record<string, ReactNode> = {
   "/my-assignments": (
     <TicketList scope="assigned" title="My Assignments" subtitle="Tickets assigned to you." />
   ),
+  "/team": <Team />,
+  "/reports": <Reports />,
+  "/settings": <Settings />,
 };
 
 export default function App() {
@@ -49,6 +58,7 @@ export default function App() {
                 }
               />
             ))}
+            <Route path="/tickets/:id" element={<TicketDetail />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
