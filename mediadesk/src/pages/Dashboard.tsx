@@ -113,15 +113,11 @@ export default function Dashboard() {
   }, []);
 
   const role = profile.role;
-  const isManager = role === "administrator" || role === "media_manager";
-  const isMember = role === "media_member";
+  const isManager = role === "administrator";
 
   const view = useMemo(() => {
     const today = new Date().toLocaleDateString("en-CA"); // YYYY-MM-DD, local time
-    const weekAhead = new Date(Date.now() + 7 * 86400000).toLocaleDateString("en-CA");
     const open = tickets.filter((t) => !CLOSED.includes(t.status));
-    const mine = tickets.filter((t) => t.assigned_to === profile.id);
-    const myOpen = mine.filter((t) => !CLOSED.includes(t.status));
     const count = (list: Ticket[], status: string) => list.filter((t) => t.status === status).length;
     const recent = tickets.slice(0, 6);
 
@@ -142,24 +138,6 @@ export default function Dashboard() {
       };
     }
 
-    if (isMember) {
-      return {
-        stats: [
-          { label: "My active tickets", value: myOpen.length },
-          {
-            label: "Due within 7 days",
-            value: myOpen.filter((t) => t.due_date && t.due_date <= weekAhead).length,
-            tone: "text-blue-400",
-          },
-          { label: "On hold", value: count(myOpen, "on_hold") },
-          { label: "Completed by me", value: count(mine, "completed") },
-        ],
-        primaryTitle: "My queue",
-        primary: [...myOpen].sort(queueSort).slice(0, 8),
-        primaryEmpty: "No tickets assigned to you right now.",
-        recent,
-      };
-    }
 
     return {
       stats: [
@@ -173,7 +151,7 @@ export default function Dashboard() {
       primaryEmpty: "You have no open tickets. Use Submit Ticket to request help.",
       recent,
     };
-  }, [tickets, profile.id, isManager, isMember]);
+  }, [tickets, isManager]);
 
   if (loading) return <p className="p-6 text-sm text-zinc-400">Loading dashboard…</p>;
   if (error) return <p className="p-6 text-sm text-red-400">Could not load dashboard: {error}</p>;
