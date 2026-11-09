@@ -15,7 +15,7 @@ export default {
         // Brand: electric blue
         electric: { 300: "#7FA6FF", 400: "#5B8CFF", 500: "#2D6BFF", 600: "#1F55E0", 700: "#1A44B5" },
         // Priority (never colour alone: the UI also shows a label and icon)
-        priority: { critical: "#FF4D5E", high: "#FFA33A", normal: "#4C8DFF", low: "#8691A6" },
+        priority: { critical: "#FF4D5E", high: "#FFA33A", medium: "#4C8DFF", low: "#8691A6" },
         // Status
         status: { done: "#34D399", hold: "#FBBF24", cancelled: "#6B7385" },
       },
