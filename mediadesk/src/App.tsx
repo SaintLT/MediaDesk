@@ -5,6 +5,7 @@ import { RequireAuth, RequireRole } from "@/components/guards";
 import AppShell from "@/components/AppShell";
 import { NAV_ITEMS } from "@/lib/nav";
 import Login from "@/pages/Login";
+import Signup from "@/pages/Signup";
 import ComingSoon from "@/pages/ComingSoon";
 import NotFound from "@/pages/NotFound";
 import SubmitTicket from "@/pages/SubmitTicket";
@@ -45,6 +46,7 @@ export default function App() {
       <AuthProvider>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
           <Route element={<RequireAuth><AppShell /></RequireAuth>}>
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             {NAV_ITEMS.map((item) => (
