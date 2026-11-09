@@ -3,6 +3,8 @@ import type { FormEvent, ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
 import { useProfile } from "@/contexts/AuthContext";
 import { ROLE_LABELS } from "@/types/db";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Moon, Sun, Monitor } from "lucide-react";
 
 const field =
   "w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40";
@@ -385,6 +387,30 @@ function DeliverablesCard({ notify }: { notify: Notify }) {
   );
 }
 
+
+function AppearanceCard() {
+  const { theme, setTheme } = useTheme();
+  return (
+    <Card title="Appearance" description="Choose how MediaDesk looks on this device. Your preference is saved automatically.">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {([
+          { value: "light" as const, label: "Light", description: "Bright, crisp and easy to read", Icon: Sun },
+          { value: "dark" as const, label: "Dark", description: "Low-glare workspace for focused work", Icon: Moon },
+        ]).map(({ value, label: optionLabel, description, Icon }) => (
+          <button key={value} type="button" onClick={() => setTheme(value)}
+            aria-pressed={theme === value}
+            className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all duration-200 hover:-translate-y-0.5 ${theme === value ? "border-electric-400 bg-electric-500/10 ring-2 ring-electric-500/15" : "border-zinc-800 bg-zinc-900/40 hover:border-zinc-600"}`}>
+            <span className={`grid h-10 w-10 place-items-center rounded-xl ${theme === value ? "bg-electric-500 text-white" : "bg-zinc-800 text-zinc-300"}`}><Icon className="h-5 w-5" /></span>
+            <span className="min-w-0 flex-1"><span className="block text-sm font-semibold text-zinc-100">{optionLabel}</span><span className="mt-0.5 block text-xs text-zinc-500">{description}</span></span>
+            <span className={`h-2.5 w-2.5 rounded-full ${theme === value ? "bg-electric-400" : "bg-zinc-700"}`} />
+          </button>
+        ))}
+      </div>
+      <p className="mt-3 flex items-center gap-2 text-xs text-zinc-500"><Monitor className="h-3.5 w-3.5" /> Applies across the whole application.</p>
+    </Card>
+  );
+}
+
 function PasswordCard({ notify }: { notify: Notify }) {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -507,6 +533,7 @@ export default function Settings() {
         </p>
       </Card>
 
+      <AppearanceCard />
       <PasswordCard notify={notify} />
 
       {isAdmin && <MinistriesCard notify={notify} />}
