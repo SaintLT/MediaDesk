@@ -43,7 +43,7 @@ function friendlyError(err: unknown, fallback: string): string {
 
 function Card({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950/90 p-6 shadow-card">
+    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950/90 p-5 shadow-card transition-colors duration-200 sm:p-6">
       <h2 className="text-sm font-semibold uppercase tracking-wide text-fog-500">{title}</h2>
       {description && <p className="mt-1 text-sm text-fog-500">{description}</p>}
       <div className="mt-4">{children}</div>
@@ -486,13 +486,13 @@ export default function Settings() {
   const notify = useCallback<Notify>((kind, text) => setMessage({ kind, text }), []);
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto max-w-5xl space-y-6 page-enter">
       <div>
-        <h1 className="text-2xl font-semibold text-white">Settings</h1>
+        <p className="eyebrow">Workspace preferences</p>\n        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Settings</h1>
         <p className="mt-1 text-sm text-fog-500">
           {isAdmin
-            ? "Manage your account and the lists used across MediaDesk."
-            : "Manage your account."}
+            ? "Manage your account, appearance and the lists used across MediaDesk."
+            : "Manage your personal account and appearance preferences."}
         </p>
       </div>
 
