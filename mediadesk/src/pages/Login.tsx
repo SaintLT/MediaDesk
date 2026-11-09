@@ -10,7 +10,7 @@ import type { Priority, Status } from "@/types/db";
 const PREVIEW: { no: string; title: string; priority: Priority; status: Status }[] = [
   { no: "MD-2026-0042", title: "Livestream audio dropping out", priority: "critical", status: "in_progress" },
   { no: "MD-2026-0038", title: "Photo coverage for staff awards", priority: "high", status: "assigned" },
-  { no: "MD-2026-0035", title: "Update lobby display slides", priority: "normal", status: "under_review" },
+  { no: "MD-2026-0035", title: "Update lobby display slides", priority: "medium", status: "under_review" },
   { no: "MD-2026-0029", title: "Replace spare camera battery", priority: "low", status: "submitted" },
 ];
 
