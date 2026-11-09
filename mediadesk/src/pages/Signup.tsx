@@ -98,7 +98,7 @@ export default function Signup() {
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-12">
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-lg rounded-3xl border border-charcoal-700 bg-charcoal-950/85 p-6 shadow-card backdrop-blur-xl sm:p-9">
         <div className="mb-8 flex items-center gap-2.5">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-electric-500 font-bold text-white shadow-glow" aria-hidden>M</span>
           <span className="text-lg font-semibold tracking-tight">MediaDesk</span>
@@ -122,7 +122,8 @@ export default function Signup() {
           </section>
         ) : (
           <>
-            <h1 className="text-2xl font-semibold tracking-tight">Create your account</h1>
+            <p className="eyebrow">Join the workspace</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100">Create your account</h1>
             <p className="mt-1 text-sm text-fog-500">
               Register with your All Saints Nairobi email address. New accounts are created as Normal Users.
             </p>
@@ -132,7 +133,7 @@ export default function Signup() {
                 <label htmlFor="full-name" className="mb-1.5 block text-sm font-medium text-fog-300">Full name</label>
                 <input id="full-name" type="text" autoComplete="name" required maxLength={120}
                   value={fullName} onChange={(event) => setFullName(event.target.value)}
-                  className="h-11 w-full rounded-lg border border-charcoal-600 bg-charcoal-900 px-3 text-sm focus:border-electric-400"
+                  className="h-11 w-full rounded-xl border border-charcoal-600 bg-charcoal-900 px-3 text-sm text-fog-100 outline-none transition focus:border-electric-400 focus:ring-2 focus:ring-electric-500/15"
                   placeholder="Your full name" />
               </div>
 

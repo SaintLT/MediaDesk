@@ -24,7 +24,7 @@ export const NAV_ITEMS: NavItem[] = [
   { to: "/my-assignments", label: "My Assignments", icon: ClipboardCheck,  roles: ["administrator"] },
   { to: "/team",           label: "Team",           icon: Users,           roles: MANAGEMENT },
   { to: "/reports",        label: "Reports",        icon: BarChart3,       roles: MANAGEMENT },
-  { to: "/settings",       label: "Settings",       icon: Settings,        roles: ["administrator"] },
+  { to: "/settings",       label: "Settings",       icon: Settings,        roles: ALL },
 ];
 
 export const navFor = (role: Role) => NAV_ITEMS.filter((i) => i.roles.includes(role));

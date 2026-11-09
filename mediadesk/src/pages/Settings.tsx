@@ -3,14 +3,16 @@ import type { FormEvent, ReactNode } from "react";
 import { supabase } from "@/lib/supabase";
 import { useProfile } from "@/contexts/AuthContext";
 import { ROLE_LABELS } from "@/types/db";
+import { useTheme } from "@/contexts/ThemeContext";
+import { Moon, Sun, Monitor } from "lucide-react";
 
 const field =
-  "w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40";
+  "w-full rounded-lg border border-charcoal-600 bg-charcoal-900 px-3 py-2 text-sm text-fog-100 placeholder-zinc-500 focus:border-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-500/30";
 const button =
-  "rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-60";
+  "rounded-lg bg-electric-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-electric-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-60";
 const smallButton =
-  "rounded-md border border-zinc-700 px-2.5 py-1 text-xs text-zinc-300 transition hover:border-zinc-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-60";
-const label = "mb-1 block text-sm font-medium text-zinc-300";
+  "rounded-md border border-charcoal-600 px-2.5 py-1 text-xs text-fog-300 transition hover:border-zinc-500 hover:text-white disabled:cursor-not-allowed disabled:opacity-60";
+const label = "mb-1 block text-sm font-medium text-fog-300";
 
 const PASSWORD_MIN = 8;
 
@@ -41,9 +43,9 @@ function friendlyError(err: unknown, fallback: string): string {
 
 function Card({ title, description, children }: { title: string; description?: string; children: ReactNode }) {
   return (
-    <section className="rounded-xl border border-zinc-800 bg-zinc-950 p-5">
-      <h2 className="text-sm font-semibold uppercase tracking-wide text-zinc-400">{title}</h2>
-      {description && <p className="mt-1 text-sm text-zinc-500">{description}</p>}
+    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950/90 p-5 shadow-card transition-colors duration-200 sm:p-6">
+      <h2 className="text-sm font-semibold uppercase tracking-wide text-fog-500">{title}</h2>
+      {description && <p className="mt-1 text-sm text-fog-500">{description}</p>}
       <div className="mt-4">{children}</div>
     </section>
   );
@@ -98,7 +100,7 @@ function EditableRow({
           }}
         />
       ) : (
-        <span className={`min-w-0 truncate text-sm ${active ? "text-zinc-100" : "text-zinc-500 line-through"}`}>
+        <span className={`min-w-0 truncate text-sm ${active ? "text-fog-100" : "text-fog-500 line-through"}`}>
           {name}
         </span>
       )}
@@ -245,19 +247,19 @@ function MinistriesCard({ notify }: { notify: Notify }) {
       </form>
 
       <div className="mt-5 space-y-4">
-        {loading && <p className="text-sm text-zinc-500">Loading…</p>}
+        {loading && <p className="text-sm text-fog-500">Loading…</p>}
         {!loading && departments.length === 0 && (
-          <p className="text-sm text-zinc-500">No departments found.</p>
+          <p className="text-sm text-fog-500">No departments found.</p>
         )}
         {departments.map((d) => {
           const items = ministries.filter((m) => m.department_id === d.id);
           return (
             <div key={d.id}>
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">{d.name}</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-fog-500">{d.name}</h3>
               {items.length === 0 ? (
-                <p className="mt-1 text-sm text-zinc-600">No ministries yet.</p>
+                <p className="mt-1 text-sm text-fog-700">No ministries yet.</p>
               ) : (
-                <ul className="divide-y divide-zinc-900">
+                <ul className="divide-y divide-charcoal-700">
                   {items.map((m) => (
                     <EditableRow
                       key={m.id}
@@ -368,8 +370,8 @@ function DeliverablesCard({ notify }: { notify: Notify }) {
         </button>
       </form>
 
-      <ul className="mt-5 divide-y divide-zinc-900">
-        {loading && <li className="py-2 text-sm text-zinc-500">Loading…</li>}
+      <ul className="mt-5 divide-y divide-charcoal-700">
+        {loading && <li className="py-2 text-sm text-fog-500">Loading…</li>}
         {rows.map((r) => (
           <EditableRow
             key={r.id}
@@ -381,6 +383,30 @@ function DeliverablesCard({ notify }: { notify: Notify }) {
           />
         ))}
       </ul>
+    </Card>
+  );
+}
+
+
+function AppearanceCard() {
+  const { theme, setTheme } = useTheme();
+  return (
+    <Card title="Appearance" description="Choose how MediaDesk looks on this device. Your preference is saved automatically.">
+      <div className="grid gap-3 sm:grid-cols-2">
+        {([
+          { value: "light" as const, label: "Light", description: "Bright, crisp and easy to read", Icon: Sun },
+          { value: "dark" as const, label: "Dark", description: "Low-glare workspace for focused work", Icon: Moon },
+        ]).map(({ value, label: optionLabel, description, Icon }) => (
+          <button key={value} type="button" onClick={() => setTheme(value)}
+            aria-pressed={theme === value}
+            className={`flex items-center gap-3 rounded-xl border p-4 text-left transition-all duration-200 hover:-translate-y-0.5 ${theme === value ? "border-electric-400 bg-electric-500/10 ring-2 ring-electric-500/15" : "border-charcoal-600 bg-charcoal-900/40 hover:border-zinc-600"}`}>
+            <span className={`grid h-10 w-10 place-items-center rounded-xl ${theme === value ? "bg-electric-500 text-white" : "bg-zinc-800 text-fog-300"}`}><Icon className="h-5 w-5" /></span>
+            <span className="min-w-0 flex-1"><span className="block text-sm font-semibold text-fog-100">{optionLabel}</span><span className="mt-0.5 block text-xs text-fog-500">{description}</span></span>
+            <span className={`h-2.5 w-2.5 rounded-full ${theme === value ? "bg-electric-400" : "bg-zinc-700"}`} />
+          </button>
+        ))}
+      </div>
+      <p className="mt-3 flex items-center gap-2 text-xs text-fog-500"><Monitor className="h-3.5 w-3.5" /> Applies across the whole application.</p>
     </Card>
   );
 }
@@ -443,7 +469,7 @@ function PasswordCard({ notify }: { notify: Notify }) {
             onChange={(e) => setConfirm(e.target.value)}
           />
         </div>
-        <p className="text-xs text-zinc-500">At least {PASSWORD_MIN} characters.</p>
+        <p className="text-xs text-fog-500">At least {PASSWORD_MIN} characters.</p>
         <button type="submit" className={button} disabled={busy || !password || !confirm}>
           {busy ? "Saving…" : "Change password"}
         </button>
@@ -460,13 +486,14 @@ export default function Settings() {
   const notify = useCallback<Notify>((kind, text) => setMessage({ kind, text }), []);
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto max-w-5xl space-y-6 page-enter">
       <div>
-        <h1 className="text-2xl font-semibold text-white">Settings</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="eyebrow">Workspace preferences</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Settings</h1>
+        <p className="mt-1 text-sm text-fog-500">
           {isAdmin
-            ? "Manage your account and the lists used across MediaDesk."
-            : "Manage your account."}
+            ? "Manage your account, appearance and the lists used across MediaDesk."
+            : "Manage your personal account and appearance preferences."}
         </p>
       </div>
 
@@ -484,29 +511,30 @@ export default function Settings() {
       )}
 
       <Card title="Account">
-        <dl className="divide-y divide-zinc-900 text-sm">
+        <dl className="divide-y divide-charcoal-700 text-sm">
           <div className="flex justify-between gap-4 py-1.5">
-            <dt className="text-zinc-500">Name</dt>
-            <dd className="text-zinc-200">{profile.full_name}</dd>
+            <dt className="text-fog-500">Name</dt>
+            <dd className="text-fog-300">{profile.full_name}</dd>
           </div>
           <div className="flex justify-between gap-4 py-1.5">
-            <dt className="text-zinc-500">Email</dt>
-            <dd className="text-zinc-200">{profile.email}</dd>
+            <dt className="text-fog-500">Email</dt>
+            <dd className="text-fog-300">{profile.email}</dd>
           </div>
           <div className="flex justify-between gap-4 py-1.5">
-            <dt className="text-zinc-500">Role</dt>
-            <dd className="text-zinc-200">{ROLE_LABELS[profile.role]}</dd>
+            <dt className="text-fog-500">Role</dt>
+            <dd className="text-fog-300">{ROLE_LABELS[profile.role]}</dd>
           </div>
           <div className="flex justify-between gap-4 py-1.5">
-            <dt className="text-zinc-500">Department</dt>
-            <dd className="text-zinc-200">{profile.department?.name ?? "—"}</dd>
+            <dt className="text-fog-500">Department</dt>
+            <dd className="text-fog-300">{profile.department?.name ?? "—"}</dd>
           </div>
         </dl>
-        <p className="mt-3 text-xs text-zinc-500">
+        <p className="mt-3 text-xs text-fog-500">
           To change your name, role or department, ask an administrator.
         </p>
       </Card>
 
+      <AppearanceCard />
       <PasswordCard notify={notify} />
 
       {isAdmin && <MinistriesCard notify={notify} />}

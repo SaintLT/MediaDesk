@@ -23,7 +23,7 @@ export function Button({ variant = "primary", loading = false, type = "button", 
       type={type}
       disabled={disabled || loading}
       className={cn(
-        "inline-flex min-h-10 items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50",
+        "inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 text-sm font-semibold shadow-sm transition duration-200 hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-electric-400/60 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0",
         VARIANTS[variant],
         className,
       )}

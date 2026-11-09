@@ -72,8 +72,8 @@ function csvCell(value: unknown) {
 
 function Stat({ label, value, tone = "" }: { label: string; value: string | number; tone?: string }) {
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
-      <p className="text-xs uppercase tracking-wide text-zinc-400">{label}</p>
+    <div className="rounded-2xl border border-charcoal-700 bg-charcoal-900/70 p-5 shadow-card">
+      <p className="text-xs uppercase tracking-wide text-fog-500">{label}</p>
       <p className={`mt-2 text-3xl font-semibold ${tone || "text-white"}`}>{value}</p>
     </div>
   );
@@ -82,19 +82,19 @@ function Stat({ label, value, tone = "" }: { label: string; value: string | numb
 function BarList({ title, rows }: { title: string; rows: { label: string; value: number }[] }) {
   const max = Math.max(1, ...rows.map((r) => r.value));
   return (
-    <section className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
-      <h2 className="mb-3 text-sm font-semibold text-zinc-200">{title}</h2>
+    <section className="rounded-xl border border-charcoal-700 bg-charcoal-900/70 p-4">
+      <h2 className="mb-3 text-sm font-semibold text-fog-300">{title}</h2>
       {rows.length === 0 ? (
-        <p className="py-6 text-center text-sm text-zinc-500">No data for this period.</p>
+        <p className="py-6 text-center text-sm text-fog-500">No data for this period.</p>
       ) : (
         <ul className="space-y-2.5">
           {rows.map((r) => (
             <li key={r.label}>
               <div className="mb-1 flex justify-between text-xs">
-                <span className="truncate text-zinc-300">{r.label}</span>
-                <span className="text-zinc-400">{r.value}</span>
+                <span className="truncate text-fog-300">{r.label}</span>
+                <span className="text-fog-500">{r.value}</span>
               </div>
-              <div className="h-2 rounded-full bg-zinc-800">
+              <div className="h-2 rounded-full bg-charcoal-800">
                 <div className="h-2 rounded-full bg-blue-500" style={{ width: `${(r.value / max) * 100}%` }} />
               </div>
             </li>
@@ -223,22 +223,22 @@ export default function Reports() {
     URL.revokeObjectURL(url);
   }
 
-  if (!canView) return <p className="p-6 text-sm text-zinc-400">You do not have access to this page.</p>;
-  if (loading) return <p className="p-6 text-sm text-zinc-400">Loading reports…</p>;
+  if (!canView) return <p className="p-6 text-sm text-fog-500">You do not have access to this page.</p>;
+  if (loading) return <p className="p-6 text-sm text-fog-500">Loading reports…</p>;
   if (error) return <p className="p-6 text-sm text-red-400">Could not load reports: {error}</p>;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6 p-6">
+    <div className="mx-auto page-enter max-w-6xl space-y-7 animate-rise">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Reports</h1>
-          <p className="text-sm text-zinc-400">Based on tickets submitted in the selected period.</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-fog-100">Reports</h1>
+          <p className="text-sm text-fog-500">Based on tickets submitted in the selected period.</p>
         </div>
         <div className="flex gap-3">
           <select
             value={range}
             onChange={(e) => setRange(e.target.value)}
-            className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-blue-500"
+            className="rounded-lg border border-charcoal-600 bg-charcoal-900 px-3 py-2 text-sm text-fog-100 outline-none focus:border-electric-400"
           >
             {RANGES.map((r) => (
               <option key={r.key} value={r.key}>
@@ -249,7 +249,7 @@ export default function Reports() {
           <button
             onClick={exportCsv}
             disabled={report.total === 0}
-            className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg bg-electric-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-electric-400 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Export CSV
           </button>
@@ -272,14 +272,14 @@ export default function Reports() {
         <BarList title="By requesting department" rows={report.deptRows} />
       </div>
 
-      <section className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
-        <h2 className="mb-3 text-sm font-semibold text-zinc-200">Team workload</h2>
+      <section className="rounded-xl border border-charcoal-700 bg-charcoal-900/70 p-4">
+        <h2 className="mb-3 text-sm font-semibold text-fog-300">Team workload</h2>
         {report.workload.length === 0 ? (
-          <p className="py-6 text-center text-sm text-zinc-500">No assigned tickets in this period.</p>
+          <p className="py-6 text-center text-sm text-fog-500">No assigned tickets in this period.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full min-w-[480px] text-left text-sm">
-              <thead className="border-b border-zinc-800 text-xs uppercase tracking-wide text-zinc-400">
+              <thead className="border-b border-charcoal-700 text-xs uppercase tracking-wide text-fog-500">
                 <tr>
                   <th className="py-2 pr-4">Member</th>
                   <th className="py-2 pr-4">Active</th>
@@ -287,13 +287,13 @@ export default function Reports() {
                   <th className="py-2">Avg. time to complete</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-800">
+              <tbody className="divide-y divide-charcoal-700">
                 {report.workload.map((w) => (
                   <tr key={w.id}>
-                    <td className="py-2.5 pr-4 text-zinc-100">{w.name}</td>
-                    <td className="py-2.5 pr-4 text-zinc-300">{w.active}</td>
-                    <td className="py-2.5 pr-4 text-zinc-300">{w.completed}</td>
-                    <td className="py-2.5 text-zinc-300">{formatDuration(w.avg)}</td>
+                    <td className="py-2.5 pr-4 text-fog-100">{w.name}</td>
+                    <td className="py-2.5 pr-4 text-fog-300">{w.active}</td>
+                    <td className="py-2.5 pr-4 text-fog-300">{w.completed}</td>
+                    <td className="py-2.5 text-fog-300">{formatDuration(w.avg)}</td>
                   </tr>
                 ))}
               </tbody>

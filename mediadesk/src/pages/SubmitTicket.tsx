@@ -16,8 +16,8 @@ import { PRIORITIES, PRIORITY_LABELS, type Priority } from "@/types/db";
 import type { Category, DeliverableType, Ministry } from "@/types/ticket";
 
 const field =
-  "w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40";
-const label = "mb-1 block text-sm font-medium text-zinc-300";
+  "w-full rounded-xl border border-charcoal-700 bg-charcoal-900 px-3 py-3 text-sm text-fog-100 placeholder-zinc-500 focus:border-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-500/20";
+const label = "mb-2 block text-xs font-semibold uppercase tracking-wider text-fog-500";
 
 // These match the length rules enforced by the database.
 const TITLE_MIN = 3;
@@ -148,15 +148,15 @@ export default function SubmitTicket() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl">
-      <h1 className="text-2xl font-semibold text-white">Submit a ticket</h1>
-      <p className="mt-1 text-sm text-zinc-400">
+    <div className="mx-auto max-w-5xl space-y-6 page-enter">
+      <div className="relative overflow-hidden rounded-3xl border border-electric-500/20 bg-gradient-to-br from-electric-500/15 via-charcoal-950 to-charcoal-950 p-6 shadow-card sm:p-9"><span className="text-xs font-bold uppercase tracking-[.18em] text-electric-300">New support request</span><h1 className="mt-3 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">How can we help?</h1>
+      <p className="mt-1 text-sm text-fog-500">
         Tell the media team what you need. The more detail you give, the faster we can help.
-      </p>
+      </p></div>
 
       <form
         onSubmit={handleSubmit}
-        className="mt-6 space-y-5 rounded-xl border border-zinc-800 bg-zinc-950 p-6"
+        className="space-y-7 rounded-3xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card sm:p-8"
       >
         <div>
           <label htmlFor="title" className={label}>
@@ -208,7 +208,7 @@ export default function SubmitTicket() {
                 </option>
               ))}
             </select>
-            <p className="mt-1 text-xs text-zinc-500">The media manager may adjust this.</p>
+            <p className="mt-1 text-xs text-fog-500">The media manager may adjust this.</p>
           </div>
         </div>
 
@@ -249,7 +249,7 @@ export default function SubmitTicket() {
                     className={`flex cursor-pointer items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition ${
                       checked
                         ? "border-blue-500 bg-blue-500/10 text-blue-200"
-                        : "border-zinc-800 bg-zinc-900 text-zinc-300 hover:border-zinc-700"
+                        : "border-charcoal-700 bg-charcoal-900 text-fog-300 hover:border-charcoal-600"
                     }`}
                   >
                     <input
@@ -322,7 +322,7 @@ export default function SubmitTicket() {
             required
             placeholder="What do you need, where, and when?"
           />
-          <p className="mt-1 text-xs text-zinc-500">
+          <p className="mt-1 text-xs text-fog-500">
             At least {DESCRIPTION_MIN} characters. {description.trim().length}/{DESCRIPTION_MIN} so far.
           </p>
         </div>
@@ -338,9 +338,9 @@ export default function SubmitTicket() {
             accept={FILE_ACCEPT}
             onChange={pickFiles}
             disabled={submitting || pendingFiles.length >= MAX_FILES}
-            className="block w-full text-sm text-zinc-400 file:mr-3 file:rounded-lg file:border-0 file:bg-zinc-800 file:px-3 file:py-2 file:text-sm file:text-zinc-200 hover:file:bg-zinc-700 disabled:opacity-50"
+            className="block w-full text-sm text-fog-500 file:mr-3 file:rounded-lg file:border-0 file:bg-charcoal-800 file:px-3 file:py-2 file:text-sm file:text-fog-300 hover:file:bg-zinc-700 disabled:opacity-50"
           />
-          <p className="mt-1 text-xs text-zinc-500">
+          <p className="mt-1 text-xs text-fog-500">
             Up to {MAX_FILES} files, 10 MB each. You can add more after submitting.
           </p>
           {pendingFiles.length > 0 && (
@@ -348,10 +348,10 @@ export default function SubmitTicket() {
               {pendingFiles.map((f, i) => (
                 <li
                   key={`${f.name}-${i}`}
-                  className="flex items-center justify-between gap-3 rounded-lg bg-zinc-900 px-3 py-1.5 text-sm"
+                  className="flex items-center justify-between gap-3 rounded-lg bg-charcoal-900 px-3 py-1.5 text-sm"
                 >
-                  <span className="truncate text-zinc-200">
-                    {f.name} <span className="text-zinc-500">· {formatBytes(f.size)}</span>
+                  <span className="truncate text-fog-300">
+                    {f.name} <span className="text-fog-500">· {formatBytes(f.size)}</span>
                   </span>
                   <button
                     type="button"
@@ -359,7 +359,7 @@ export default function SubmitTicket() {
                       setPendingFiles((current) => current.filter((_, idx) => idx !== i));
                       setFileErrors([]);
                     }}
-                    className="shrink-0 text-xs text-zinc-400 hover:text-red-300"
+                    className="shrink-0 text-xs text-fog-500 hover:text-red-300"
                   >
                     Remove
                   </button>
@@ -385,14 +385,15 @@ export default function SubmitTicket() {
           </p>
         )}
 
-        <div className="flex justify-end">
+        <div className="flex flex-col-reverse gap-3 border-t border-charcoal-700 pt-5 sm:flex-row sm:items-center sm:justify-between"><p className="text-xs text-fog-500">Your request will be visible to the support team.</p><div className="flex justify-end">
           <button
             type="submit"
             disabled={submitting || !categoryId}
-            className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-electric-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-400/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? "Submitting…" : "Submit ticket"}
           </button>
+          </div>
         </div>
       </form>
     </div>

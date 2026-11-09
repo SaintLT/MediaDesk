@@ -18,9 +18,9 @@ const ROLES = [
 ];
 const SELECT_COLS = "id, full_name, email, department_id, role, is_active";
 const selectClass =
-  "rounded-lg border border-zinc-700 bg-zinc-900 px-2 py-1.5 text-sm text-zinc-100 outline-none focus:border-blue-500 disabled:cursor-not-allowed disabled:opacity-50";
+  "rounded-lg border border-charcoal-600 bg-charcoal-900 px-2 py-1.5 text-sm text-fog-100 outline-none focus:border-electric-400 disabled:cursor-not-allowed disabled:opacity-50";
 const fieldClass =
-  "w-full rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-blue-500";
+  "w-full rounded-lg border border-charcoal-600 bg-charcoal-950 px-3 py-2 text-sm text-fog-100 outline-none focus:border-electric-400";
 
 export default function Team() {
   const profile = useProfile();
@@ -173,15 +173,16 @@ export default function Team() {
     void save(m.id, { is_active: !m.is_active });
   }
 
-  if (!canEdit) return <p className="p-6 text-sm text-zinc-400">You do not have access to this page.</p>;
-  if (loading) return <p className="p-6 text-sm text-zinc-400">Loading team…</p>;
+  if (!canEdit) return <p className="p-6 text-sm text-fog-500">You do not have access to this page.</p>;
+  if (loading) return <p className="p-6 text-sm text-fog-500">Loading team…</p>;
   if (loadError) return <p className="p-6 text-sm text-red-400">Could not load team: {loadError}</p>;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-5 p-6">
+    <div className="mx-auto max-w-6xl space-y-6 page-enter">
       <header>
-        <h1 className="text-2xl font-semibold text-white">Team</h1>
-        <p className="text-sm text-zinc-400">
+        <p className="eyebrow">Workspace administration</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Team</h1>
+        <p className="text-sm text-fog-500">
           {members.length} members · {members.filter((m) => m.is_active).length} active
         </p>
       </header>
@@ -194,7 +195,7 @@ export default function Team() {
             setCreateError(null);
             setCreateSuccess(null);
           }}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500"
+          className="rounded-lg bg-electric-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-electric-400"
         >
           {createOpen ? "Close form" : "Create account"}
         </button>
@@ -202,7 +203,7 @@ export default function Team() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search name or email"
-          className="w-full max-w-xs rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 outline-none focus:border-blue-500"
+          className="w-full max-w-xs rounded-lg border border-charcoal-600 bg-charcoal-900 px-3 py-2 text-sm text-fog-100 outline-none focus:border-electric-400"
         />
         <select value={roleFilter} onChange={(e) => setRoleFilter(e.target.value)} className={selectClass}>
           <option value="all">All roles</option>
@@ -221,9 +222,9 @@ export default function Team() {
       )}
 
       {createOpen && (
-        <form onSubmit={createAccount} className="grid gap-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 sm:grid-cols-2">
+        <form onSubmit={createAccount} className="grid gap-4 rounded-2xl border border-charcoal-700 bg-charcoal-950 shadow-card p-5 sm:grid-cols-2">
           <div>
-            <label htmlFor="new-member-name" className="mb-1 block text-sm font-medium text-zinc-300">Full name</label>
+            <label htmlFor="new-member-name" className="mb-1 block text-sm font-medium text-fog-300">Full name</label>
             <input
               id="new-member-name"
               required
@@ -236,7 +237,7 @@ export default function Team() {
             />
           </div>
           <div>
-            <label htmlFor="new-member-email" className="mb-1 block text-sm font-medium text-zinc-300">Email address</label>
+            <label htmlFor="new-member-email" className="mb-1 block text-sm font-medium text-fog-300">Email address</label>
             <input
               id="new-member-email"
               type="email"
@@ -248,7 +249,7 @@ export default function Team() {
             />
           </div>
           <div>
-            <label htmlFor="new-member-department" className="mb-1 block text-sm font-medium text-zinc-300">Active department</label>
+            <label htmlFor="new-member-department" className="mb-1 block text-sm font-medium text-fog-300">Active department</label>
             <select
               id="new-member-department"
               required
@@ -263,13 +264,13 @@ export default function Team() {
             </select>
           </div>
           <div>
-            <label htmlFor="new-member-role" className="mb-1 block text-sm font-medium text-zinc-300">Role</label>
+            <label htmlFor="new-member-role" className="mb-1 block text-sm font-medium text-fog-300">Role</label>
             <select id="new-member-role" value={newRole} onChange={(e) => setNewRole(e.target.value)} className={fieldClass}>
               {ROLES.map((r) => <option key={r.value} value={r.value}>{r.label}</option>)}
             </select>
           </div>
           <div className="sm:col-span-2">
-            <label htmlFor="new-member-password" className="mb-1 block text-sm font-medium text-zinc-300">Temporary password</label>
+            <label htmlFor="new-member-password" className="mb-1 block text-sm font-medium text-fog-300">Temporary password</label>
             <input
               id="new-member-password"
               type="password"
@@ -281,7 +282,7 @@ export default function Team() {
               className={fieldClass}
               placeholder="At least 10 characters"
             />
-            <p className="mt-1 text-xs text-zinc-500">
+            <p className="mt-1 text-xs text-fog-500">
               Share this password with the new user securely. They can change it later in Settings.
             </p>
           </div>
@@ -290,7 +291,7 @@ export default function Team() {
             <button
               type="submit"
               disabled={creating || !depts.some((d) => d.is_active)}
-              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+              className="rounded-lg bg-electric-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-electric-400 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {creating ? "Creating account…" : "Create account"}
             </button>
@@ -298,7 +299,7 @@ export default function Team() {
               type="button"
               disabled={creating}
               onClick={() => setCreateOpen(false)}
-              className="rounded-lg border border-zinc-700 px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-800 disabled:opacity-50"
+              className="rounded-lg border border-charcoal-600 px-4 py-2 text-sm text-fog-300 hover:bg-charcoal-800 disabled:opacity-50"
             >
               Cancel
             </button>
@@ -306,9 +307,9 @@ export default function Team() {
         </form>
       )}
 
-      <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/60">
+      <div className="overflow-x-auto rounded-xl border border-charcoal-700 bg-charcoal-900/70">
         <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className="border-b border-zinc-800 text-xs uppercase tracking-wide text-zinc-400">
+          <thead className="border-b border-charcoal-700 text-xs uppercase tracking-wide text-fog-500">
             <tr>
               <th className="px-4 py-3">Member</th>
               <th className="px-4 py-3">Role</th>
@@ -316,17 +317,17 @@ export default function Team() {
               <th className="px-4 py-3">Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-zinc-800">
+          <tbody className="divide-y divide-charcoal-700">
             {visible.map((m) => {
               const isSelf = m.id === profile.id;
               const locked = savingId === m.id;
               return (
                 <tr key={m.id} className={m.is_active ? "" : "opacity-60"}>
                   <td className="px-4 py-3">
-                    <p className="font-medium text-zinc-100">
+                    <p className="font-medium text-fog-100">
                       {m.full_name ?? "—"} {isSelf && <span className="text-xs text-blue-400">(you)</span>}
                     </p>
-                    <p className="text-xs text-zinc-500">{m.email}</p>
+                    <p className="text-xs text-fog-500">{m.email}</p>
                     {rowError?.id === m.id && <p className="mt-1 text-xs text-red-400">{rowError.message}</p>}
                   </td>
                   <td className="px-4 py-3">
@@ -358,7 +359,7 @@ export default function Team() {
                         "rounded-full border px-3 py-1 text-xs transition disabled:cursor-not-allowed " +
                         (m.is_active
                           ? "border-emerald-500/30 bg-emerald-500/15 text-emerald-300"
-                          : "border-zinc-600 bg-zinc-800 text-zinc-400")
+                          : "border-zinc-600 bg-charcoal-800 text-fog-500")
                       }
                     >
                       {m.is_active ? "Active" : "Inactive"}
@@ -369,7 +370,7 @@ export default function Team() {
             })}
             {visible.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-8 text-center text-zinc-500">
+                <td colSpan={4} className="px-4 py-8 text-center text-fog-500">
                   No members match your filters.
                 </td>
               </tr>

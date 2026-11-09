@@ -39,8 +39,8 @@ export default function Login() {
   }
 
   return (
-    <div className="grid min-h-screen lg:grid-cols-[1.1fr_1fr]">
-      <section aria-hidden className="relative hidden overflow-hidden border-r border-charcoal-700 bg-charcoal-950 lg:flex lg:flex-col lg:justify-between lg:p-12">
+    <div className="grid min-h-screen bg-ink lg:grid-cols-[1.05fr_.95fr]">
+      <section aria-hidden className="relative hidden overflow-hidden border-r border-charcoal-700 bg-charcoal-950 lg:flex lg:flex-col lg:justify-between lg:p-14">
         <div className="flex items-center gap-2.5">
           <span className="grid h-9 w-9 place-items-center rounded-lg bg-electric-500 font-bold text-white shadow-glow">M</span>
           <span className="text-lg font-semibold tracking-tight">MediaDesk</span>
@@ -62,13 +62,14 @@ export default function Login() {
         <p className="max-w-sm text-sm text-fog-500">Requests, priorities and progress for the media team, in one queue.</p>
       </section>
 
-      <main className="flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-sm">
+      <main className="relative flex items-center justify-center px-6 py-12 sm:px-10">
+        <div className="w-full max-w-md rounded-3xl border border-charcoal-700 bg-charcoal-950/80 p-6 shadow-card backdrop-blur-xl sm:p-9">
           <div className="mb-8 flex items-center gap-2.5 lg:hidden">
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-electric-500 font-bold text-white shadow-glow" aria-hidden>M</span>
             <span className="text-lg font-semibold tracking-tight">MediaDesk</span>
           </div>
-          <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
+          <p className="eyebrow">Welcome back</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100">Sign in to MediaDesk</h1>
           <p className="mt-1 text-sm text-fog-500">Sign in to manage and track MediaDesk requests.</p>
 
           <form onSubmit={onSubmit} className="mt-8 space-y-5" noValidate>
@@ -77,7 +78,7 @@ export default function Login() {
               <input
                 id="email" type="email" autoComplete="username" required autoFocus
                 value={email} onChange={(e) => setEmail(e.target.value)}
-                className="h-11 w-full rounded-lg border border-charcoal-600 bg-charcoal-900 px-3 text-sm placeholder:text-fog-700 focus:border-electric-400"
+                className="h-11 w-full rounded-xl border border-charcoal-600 bg-charcoal-900 px-3 text-sm text-fog-100 placeholder:text-fog-700 outline-none transition focus:border-electric-400 focus:ring-2 focus:ring-electric-500/15"
                 placeholder="you@organisation.org"
               />
             </div>
@@ -87,7 +88,7 @@ export default function Login() {
                 <input
                   id="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required
                   value={password} onChange={(e) => setPassword(e.target.value)}
-                  className="h-11 w-full rounded-lg border border-charcoal-600 bg-charcoal-900 pl-3 pr-11 text-sm focus:border-electric-400"
+                  className="h-11 w-full rounded-xl border border-charcoal-600 bg-charcoal-900 pl-3 pr-11 text-sm text-fog-100 outline-none transition focus:border-electric-400 focus:ring-2 focus:ring-electric-500/15"
                 />
                 <button
                   type="button" onClick={() => setShowPassword((v) => !v)}
