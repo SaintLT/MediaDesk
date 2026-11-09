@@ -14,9 +14,7 @@ type Dept = { id: string; name: string };
 
 const ROLES = [
   { value: "administrator", label: "Administrator" },
-  { value: "media_manager", label: "Media Manager" },
-  { value: "media_member", label: "Media Team Member" },
-  { value: "requester", label: "Requester" },
+  { value: "normal_user", label: "Normal User" },
 ];
 const SELECT_COLS = "id, full_name, email, department_id, role, is_active";
 const selectClass =
@@ -25,7 +23,7 @@ const selectClass =
 export default function Team() {
   const profile = useProfile();
   const canEdit = profile.role === "administrator";
-  const canView = canEdit || profile.role === "media_manager";
+  const canView = canEdit;
 
   const [members, setMembers] = useState<Member[]>([]);
   const [depts, setDepts] = useState<Dept[]>([]);
