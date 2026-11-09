@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button, FullScreenSpinner } from "@/components/ui";
@@ -69,7 +69,7 @@ export default function Login() {
             <span className="text-lg font-semibold tracking-tight">MediaDesk</span>
           </div>
           <h1 className="text-2xl font-semibold tracking-tight">Sign in</h1>
-          <p className="mt-1 text-sm text-fog-500">Use the account your administrator created for you.</p>
+          <p className="mt-1 text-sm text-fog-500">Sign in to manage and track MediaDesk requests.</p>
 
           <form onSubmit={onSubmit} className="mt-8 space-y-5" noValidate>
             <div>
@@ -111,6 +111,8 @@ export default function Login() {
           </form>
 
           <p className="mt-6 text-sm text-fog-500">Forgot your password? Ask an administrator to reset it.</p>
+          <p className="mt-4 text-sm text-fog-500">Don’t have an account? <Link to="/signup" className="font-medium text-electric-300 hover:text-electric-200">Create an account</Link></p>
+          <p className="mt-3 text-xs text-fog-600">Registration is available to staff with an @allsaintsnairobi.org email address.</p>
         </div>
       </main>
     </div>
