@@ -91,7 +91,7 @@ function describeActivity(a: ActivityEntry): string {
 
 function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card sm:p-6">
+    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card transition-colors duration-200 sm:p-6">
       <h2 className="mb-3 text-xs font-bold uppercase tracking-[.14em] text-fog-500">{title}</h2>
       {children}
     </section>
