@@ -302,7 +302,7 @@ export async function fetchAssignableMembers(): Promise<TeamMember[]> {
     .from("profiles")
     .select("id, full_name, role")
     .eq("is_active", true)
-    .in("role", ["media_member", "media_manager"])
+    .eq("role", "administrator")
     .order("full_name", { ascending: true });
   if (error) throw error;
   return (data ?? []) as TeamMember[];
