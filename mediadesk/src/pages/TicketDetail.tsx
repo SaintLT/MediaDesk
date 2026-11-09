@@ -135,7 +135,7 @@ export default function TicketDetail() {
 
   const [statusChoice, setStatusChoice] = useState("");
   const [resolution, setResolution] = useState("");
-  const [priorityChoice, setPriorityChoice] = useState<Priority>("normal");
+  const [priorityChoice, setPriorityChoice] = useState<Priority>("medium");
   const [assigneeChoice, setAssigneeChoice] = useState("");
   const [commentText, setCommentText] = useState("");
   const [pendingFiles, setPendingFiles] = useState<File[]>([]);
