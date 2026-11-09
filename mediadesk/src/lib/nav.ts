@@ -11,8 +11,8 @@ export interface NavItem {
   roles: Role[];
 }
 
-const ALL: Role[] = ["administrator", "media_manager", "media_member", "requester"];
-const MANAGEMENT: Role[] = ["administrator", "media_manager"];
+const ALL: Role[] = ["administrator", "normal_user"];
+const MANAGEMENT: Role[] = ["administrator"];
 
 // Single source of truth for navigation AND route guards. This only controls what is SHOWN;
 // the database (Row Level Security) is what actually protects the data.
@@ -21,7 +21,7 @@ export const NAV_ITEMS: NavItem[] = [
   { to: "/submit",         label: "Submit Ticket",  icon: PlusCircle,      roles: ALL },
   { to: "/tickets",        label: "All Tickets",    icon: ListChecks,      roles: MANAGEMENT },
   { to: "/my-tickets",     label: "My Tickets",     icon: Ticket,          roles: ALL },
-  { to: "/my-assignments", label: "My Assignments", icon: ClipboardCheck,  roles: ["media_manager", "media_member"] },
+  { to: "/my-assignments", label: "My Assignments", icon: ClipboardCheck,  roles: ["administrator"] },
   { to: "/team",           label: "Team",           icon: Users,           roles: MANAGEMENT },
   { to: "/reports",        label: "Reports",        icon: BarChart3,       roles: MANAGEMENT },
   { to: "/settings",       label: "Settings",       icon: Settings,        roles: ["administrator"] },
