@@ -115,7 +115,7 @@ export default function TicketDetail() {
   const navigate = useNavigate();
   const location = useLocation();
   const profile = useProfile();
-  const isManager = profile.role === "administrator" || profile.role === "media_manager";
+  const isManager = profile.role === "administrator";
 
   const [ticket, setTicket] = useState<Ticket | null>(null);
   const [activity, setActivity] = useState<ActivityEntry[]>([]);
@@ -203,17 +203,12 @@ export default function TicketDetail() {
   }
 
   // What this person may do, matching the database rules.
-  const isAssignedMember = profile.role === "media_member" && ticket.assigned_to === profile.id;
   const isRequester = ticket.requester_id === profile.id;
-  const canAttach = isManager || isRequester || isAssignedMember;
+  const canAttach = isManager || isRequester;
 
   let statusOptions: Status[] = [];
   if (isManager) {
     statusOptions = STATUSES.filter((s) => s !== ticket.status);
-  } else if (isAssignedMember) {
-    statusOptions = MEMBER_FROM.includes(ticket.status)
-      ? MEMBER_TO.filter((s) => s !== ticket.status)
-      : [];
   } else if (isRequester) {
     statusOptions =
       ticket.status === "submitted" || ticket.status === "under_review" ? ["cancelled"] : [];
