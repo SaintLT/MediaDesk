@@ -61,7 +61,7 @@ export function validateFiles(
 const PRIORITY_RANK: Record<Priority, number> = {
   critical: 0,
   high: 1,
-  normal: 2,
+  medium: 2,
   low: 3,
 };
 
