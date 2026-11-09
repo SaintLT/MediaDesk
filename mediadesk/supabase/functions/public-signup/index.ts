@@ -38,6 +38,26 @@ Deno.serve(async (req) => {
     return fail("Invalid request body.");
   }
 
+  const url = Deno.env.get("SUPABASE_URL")!;
+  const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
+  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+
+  const admin = createClient(url, serviceKey, {
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+
+  // Expose only active department names and IDs to the signed-out registration page.
+  if (body.action === "list_departments") {
+    const { data, error } = await admin
+      .from("departments")
+      .select("id, name")
+      .eq("is_active", true)
+      .order("name");
+
+    if (error) return fail("Could not load departments.", 500);
+    return json({ departments: data ?? [] });
+  }
+
   const fullName = String(body.full_name ?? "").trim();
   const email = String(body.email ?? "").trim().toLowerCase();
   const departmentId = String(body.department_id ?? "");
@@ -48,14 +68,6 @@ Deno.serve(async (req) => {
   if (!email.endsWith(ALLOWED_DOMAIN)) return fail(`Registration is only available to ${ALLOWED_DOMAIN} email addresses.`, 403);
   if (!UUID_RE.test(departmentId)) return fail("Choose a valid department.");
   if (password.length < 10) return fail("Your password must be at least 10 characters.");
-
-  const url = Deno.env.get("SUPABASE_URL")!;
-  const anonKey = Deno.env.get("SUPABASE_ANON_KEY")!;
-  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-
-  const admin = createClient(url, serviceKey, {
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
 
   const { data: department, error: departmentError } = await admin
     .from("departments")
