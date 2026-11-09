@@ -68,7 +68,8 @@ export default function Login() {
             <span className="grid h-9 w-9 place-items-center rounded-lg bg-electric-500 font-bold text-white shadow-glow" aria-hidden>M</span>
             <span className="text-lg font-semibold tracking-tight">MediaDesk</span>
           </div>
-          <p className="eyebrow">Welcome back</p>\n          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100">Sign in to MediaDesk</h1>
+          <p className="eyebrow">Welcome back</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100">Sign in to MediaDesk</h1>
           <p className="mt-1 text-sm text-fog-500">Sign in to manage and track MediaDesk requests.</p>
 
           <form onSubmit={onSubmit} className="mt-8 space-y-5" noValidate>
