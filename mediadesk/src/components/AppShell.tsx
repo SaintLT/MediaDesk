@@ -117,12 +117,12 @@ export default function AppShell() {
   const needsMore = items.length > 4;
 
   return (
-    <div className="min-h-screen bg-ink text-fog-100">
+    <div className="relative min-h-screen overflow-x-hidden bg-ink text-fog-100">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-lg focus:bg-electric-500 focus:px-3 focus:py-2">
         Skip to content
       </a>
 
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[272px] flex-col gap-8 border-r border-charcoal-700/80 bg-charcoal-950 p-5 md:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-[272px] flex-col gap-8 border-r border-charcoal-700/80 bg-charcoal-950/95 p-5 shadow-[12px_0_40px_-34px_rgba(0,0,0,.7)] backdrop-blur-xl md:flex">
         <div className="px-2 pt-1"><Brand /></div>
         <div className="flex-1 overflow-y-auto"><NavList items={items} /></div>
         <div className="space-y-3">
@@ -163,14 +163,14 @@ export default function AppShell() {
 
       <main id="main" className="md:pl-[272px]">
         <div className="mx-auto max-w-[1440px] px-4 pb-28 md:px-8 md:pb-10">
-          <div className="hidden h-[72px] items-center justify-between border-b border-charcoal-700/60 md:flex">
+          <div className="hidden h-20 items-center justify-between border-b border-charcoal-700/60 md:flex">
             <div>
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-fog-700">MediaDesk / Workspace</p>
               <h1 className="mt-1 text-sm font-semibold text-fog-100">{pageTitle}</h1>
             </div>
             <ThemeButton />
           </div>
-          <div className="py-6 md:py-8">
+          <div className="py-6 md:py-9 page-enter">
             <Outlet />
           </div>
         </div>
