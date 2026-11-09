@@ -44,9 +44,6 @@ const button =
 const label = "mb-1 block text-sm font-medium text-zinc-300";
 const formBox = "space-y-2 border-t border-zinc-800 pt-4 first:border-0 first:pt-0";
 
-// Mirrors the database rules for assigned team members.
-const MEMBER_FROM: Status[] = ["assigned", "in_progress", "on_hold"];
-const MEMBER_TO: Status[] = ["in_progress", "on_hold", "completed"];
 const NOTE_MIN = 5;
 
 const fmtDateTime = (d: string) => new Date(d).toLocaleString();
