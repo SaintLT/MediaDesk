@@ -16,7 +16,7 @@ import { PRIORITIES, PRIORITY_LABELS, type Priority } from "@/types/db";
 import type { Category, DeliverableType, Ministry } from "@/types/ticket";
 
 const field =
-  "w-full rounded-lg border border-charcoal-700 bg-charcoal-900 px-3 py-2 text-sm text-fog-100 placeholder-zinc-500 focus:border-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-500/20";
+  "w-full rounded-xl border border-charcoal-700 bg-charcoal-900 px-3 py-3 text-sm text-fog-100 placeholder-zinc-500 focus:border-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-500/20";
 const label = "mb-2 block text-xs font-semibold uppercase tracking-wider text-fog-500";
 
 // These match the length rules enforced by the database.
@@ -148,15 +148,15 @@ export default function SubmitTicket() {
   }
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 animate-rise">
-      <div className="rounded-3xl border border-electric-500/20 bg-gradient-to-br from-electric-500/10 via-charcoal-950 to-charcoal-950 p-6 sm:p-8"><span className="text-xs font-bold uppercase tracking-[.18em] text-electric-300">New support request</span><h1 className="mt-3 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">How can we help?</h1>
+    <div className="mx-auto max-w-5xl space-y-6 page-enter">
+      <div className="relative overflow-hidden rounded-3xl border border-electric-500/20 bg-gradient-to-br from-electric-500/15 via-charcoal-950 to-charcoal-950 p-6 shadow-card sm:p-9"><span className="text-xs font-bold uppercase tracking-[.18em] text-electric-300">New support request</span><h1 className="mt-3 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">How can we help?</h1>
       <p className="mt-1 text-sm text-fog-500">
         Tell the media team what you need. The more detail you give, the faster we can help.
       </p></div>
 
       <form
         onSubmit={handleSubmit}
-        className="space-y-6 rounded-3xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card sm:p-8"
+        className="space-y-7 rounded-3xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card sm:p-8"
       >
         <div>
           <label htmlFor="title" className={label}>
