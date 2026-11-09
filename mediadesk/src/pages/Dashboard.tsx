@@ -16,12 +16,12 @@ type Ticket = {
 };
 
 const CLOSED = ["completed", "cancelled"];
-const PRIORITY_RANK: Record<string, number> = { critical: 0, high: 1, normal: 2, low: 3 };
+const PRIORITY_RANK: Record<string, number> = { critical: 0, high: 1, medium: 2, low: 3 };
 
 const priorityStyle: Record<string, string> = {
   critical: "border-red-500/30 bg-red-500/15 text-red-300",
   high: "border-orange-500/30 bg-orange-500/15 text-orange-300",
-  normal: "border-blue-500/30 bg-blue-500/15 text-blue-300",
+  medium: "border-blue-500/30 bg-blue-500/15 text-blue-300",
   low: "border-zinc-500/30 bg-zinc-500/15 text-zinc-300",
 };
 
@@ -61,7 +61,7 @@ function TicketLine({ t }: { t: Ticket }) {
       </div>
       <span
         className={`shrink-0 rounded-full border px-2 py-0.5 text-xs ${
-          priorityStyle[t.priority] ?? priorityStyle.normal
+          priorityStyle[t.priority] ?? priorityStyle.medium
         }`}
       >
         {pretty(t.priority)}
