@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
+import type { LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { useProfile } from "@/contexts/AuthContext";
@@ -20,7 +22,7 @@ function queueSort(a: Ticket, b: Ticket) {
   return (a.submitted_at ?? "").localeCompare(b.submitted_at ?? "");
 }
 function StatCard({ label, value, icon: Icon, tone = "blue", hint }: {
-  label: string; value: number; icon: typeof TicketIcon; tone?: "blue" | "amber" | "red" | "green"; hint: string;
+  label: string; value: number; icon: LucideIcon; tone?: "blue" | "amber" | "red" | "green"; hint: string;
 }) {
   const tones = {
     blue: "bg-electric-500/10 text-electric-300 ring-electric-500/20",
@@ -43,7 +45,7 @@ function TicketRow({ ticket }: { ticket: Ticket }) {
     <span className="flex items-center gap-2"><PriorityBadge priority={ticket.priority as any} /><ArrowUpRight className="h-4 w-4 text-fog-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-electric-300" /></span>
   </Link>;
 }
-function Panel({ title, subtitle, items, empty, action }: { title: string; subtitle: string; items: Ticket[]; empty: string; action?: React.ReactNode }) {
+function Panel({ title, subtitle, items, empty, action }: { title: string; subtitle: string; items: Ticket[]; empty: string; action?: ReactNode }) {
   return <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card">
     <div className="mb-4 flex flex-wrap items-start justify-between gap-3"><div><h2 className="font-semibold text-fog-100">{title}</h2><p className="mt-1 text-xs text-fog-500">{subtitle}</p></div>{action}</div>
     {items.length ? <div className="space-y-1">{items.map((t) => <TicketRow key={t.id} ticket={t} />)}</div> : <div className="rounded-xl border border-dashed border-charcoal-600 px-4 py-9 text-center"><CheckCircle2 className="mx-auto h-7 w-7 text-emerald-400" /><p className="mt-3 text-sm font-medium text-fog-200">{empty}</p></div>}
