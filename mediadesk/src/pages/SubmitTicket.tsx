@@ -38,7 +38,7 @@ export default function SubmitTicket() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [categoryId, setCategoryId] = useState("");
-  const [priority, setPriority] = useState<Priority>("normal");
+  const [priority, setPriority] = useState<Priority>("medium");
   const [requiredDate, setRequiredDate] = useState("");
   const [ministryId, setMinistryId] = useState("");
   const [requestedFor, setRequestedFor] = useState("");
