@@ -72,7 +72,7 @@ function csvCell(value: unknown) {
 
 function Stat({ label, value, tone = "" }: { label: string; value: string | number; tone?: string }) {
   return (
-    <div className="rounded-xl border border-charcoal-700 bg-charcoal-900/70 p-4">
+    <div className="rounded-2xl border border-charcoal-700 bg-charcoal-900/70 p-5 shadow-card">
       <p className="text-xs uppercase tracking-wide text-fog-500">{label}</p>
       <p className={`mt-2 text-3xl font-semibold ${tone || "text-white"}`}>{value}</p>
     </div>
@@ -228,7 +228,7 @@ export default function Reports() {
   if (error) return <p className="p-6 text-sm text-red-400">Could not load reports: {error}</p>;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-7 animate-rise">
+    <div className="mx-auto page-enter max-w-6xl space-y-7 animate-rise">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight text-fog-100">Reports</h1>
