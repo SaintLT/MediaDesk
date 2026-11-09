@@ -71,8 +71,6 @@ export default function Team() {
     };
   }, []);
 
-  const deptName = useMemo(() => new Map(depts.map((d) => [d.id, d.name])), [depts]);
-
   const visible = useMemo(() => {
     const q = search.trim().toLowerCase();
     return members.filter((m) => {
