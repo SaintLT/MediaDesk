@@ -152,7 +152,7 @@ export default function SubmitTicket() {
       <div className="rounded-3xl border border-electric-500/20 bg-gradient-to-br from-electric-500/10 via-charcoal-950 to-charcoal-950 p-6 sm:p-8"><span className="text-xs font-bold uppercase tracking-[.18em] text-electric-300">New support request</span><h1 className="mt-3 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">How can we help?</h1>
       <p className="mt-1 text-sm text-fog-500">
         Tell the media team what you need. The more detail you give, the faster we can help.
-      </p>
+      </p></div>
 
       <form
         onSubmit={handleSubmit}
@@ -389,7 +389,7 @@ export default function SubmitTicket() {
           <button
             type="submit"
             disabled={submitting || !categoryId}
-            className="rounded-lg bg-electric-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-electric-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-60"
+            className="rounded-lg bg-electric-500 px-5 py-2 text-sm font-medium text-white transition hover:bg-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-400/40 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {submitting ? "Submitting…" : "Submit ticket"}
           </button>
