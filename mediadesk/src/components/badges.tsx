@@ -6,7 +6,7 @@ import { PRIORITY_LABELS, STATUS_LABELS, type Priority, type Status } from "@/ty
 const PRIORITY_STYLE: Record<Priority, { icon: LucideIcon; cls: string }> = {
   critical: { icon: Flame,     cls: "bg-priority-critical/15 text-priority-critical ring-priority-critical/40" },
   high:     { icon: ArrowUp,   cls: "bg-priority-high/15 text-priority-high ring-priority-high/40" },
-  normal:   { icon: Minus,     cls: "bg-priority-normal/15 text-priority-normal ring-priority-normal/40" },
+  medium:   { icon: Minus,     cls: "bg-priority-medium/15 text-priority-medium ring-priority-medium/40" },
   low:      { icon: ArrowDown, cls: "bg-priority-low/15 text-priority-low ring-priority-low/40" },
 };
 
