@@ -2,12 +2,82 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ink: 7 10 17;
+  --charcoal-950: 11 15 25;
+  --charcoal-900: 16 22 34;
+  --charcoal-800: 23 31 47;
+  --charcoal-700: 34 44 63;
+  --charcoal-600: 49 62 84;
+  --charcoal-500: 68 82 106;
+  --fog-100: 241 245 252;
+  --fog-300: 196 207 224;
+  --fog-500: 139 153 177;
+  --fog-700: 94 108 134;
+  --electric-300: 143 179 255;
+  --electric-400: 91 140 255;
+  --electric-500: 45 107 255;
+  --electric-600: 31 85 224;
+  --electric-700: 26 68 181;
+  --surface-strong: 11 15 25;
+  --surface: 16 22 34;
+  --surface-muted: 23 31 47;
+}
+
+html[data-theme="light"] {
+  --ink: 245 247 251;
+  --charcoal-950: 255 255 255;
+  --charcoal-900: 249 250 253;
+  --charcoal-800: 240 243 249;
+  --charcoal-700: 224 230 240;
+  --charcoal-600: 205 214 228;
+  --charcoal-500: 169 181 200;
+  --fog-100: 25 35 54;
+  --fog-300: 64 77 100;
+  --fog-500: 103 117 142;
+  --fog-700: 139 151 171;
+  --electric-300: 49 96 205;
+  --electric-400: 38 91 220;
+  --electric-500: 36 94 224;
+  --electric-600: 30 78 194;
+  --electric-700: 25 65 163;
+  --surface-strong: 255 255 255;
+  --surface: 249 250 253;
+  --surface-muted: 240 243 249;
+}
+
 @layer base {
-  html { color-scheme: dark; }
-  body { @apply bg-ink font-sans text-fog-100 antialiased; font-variant-numeric: tabular-nums; }
+  html { color-scheme: dark; scroll-behavior: smooth; }
+  html[data-theme="light"] { color-scheme: light; }
+  body {
+    @apply bg-ink font-sans text-fog-100 antialiased;
+    font-variant-numeric: tabular-nums;
+    background-image: radial-gradient(ellipse at 70% -20%, rgba(45,107,255,.10), transparent 42%);
+    transition: background-color .25s ease, color .25s ease;
+  }
   :focus-visible { outline: 2px solid theme("colors.electric.400"); outline-offset: 2px; }
   ::selection { background: theme("colors.electric.500"); color: white; }
+  button, a, input, select, textarea { -webkit-tap-highlight-color: transparent; }
   @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
   }
+}
+
+@layer utilities {
+  html[data-theme="light"] .bg-zinc-950 { background-color: rgb(255 255 255) !important; }
+  html[data-theme="light"] .bg-zinc-900,
+  html[data-theme="light"] .bg-zinc-900\/60 { background-color: rgb(249 250 253) !important; }
+  html[data-theme="light"] .bg-zinc-800,
+  html[data-theme="light"] .bg-zinc-800\/60 { background-color: rgb(240 243 249) !important; }
+  html[data-theme="light"] .text-white,
+  html[data-theme="light"] .text-zinc-100,
+  html[data-theme="light"] .text-zinc-200 { color: rgb(25 35 54) !important; }
+  html[data-theme="light"] .text-zinc-300,
+  html[data-theme="light"] .text-zinc-400 { color: rgb(64 77 100) !important; }
+  html[data-theme="light"] .text-zinc-500,
+  html[data-theme="light"] .text-zinc-600 { color: rgb(103 117 142) !important; }
+  html[data-theme="light"] .border-zinc-800,
+  html[data-theme="light"] .border-zinc-900,
+  html[data-theme="light"] .divide-zinc-900 > :not([hidden]) ~ :not([hidden]) { border-color: rgb(224 230 240) !important; }
+  html[data-theme="light"] .hover\:bg-zinc-800\/60:hover { background-color: rgb(240 243 249) !important; }
 }
