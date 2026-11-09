@@ -21,7 +21,7 @@ type Person = { id: string; full_name: string | null };
 
 const CLOSED = ["completed", "cancelled"];
 const STATUS_ORDER = ["submitted", "under_review", "assigned", "in_progress", "on_hold", "completed", "cancelled"];
-const PRIORITY_ORDER = ["critical", "high", "normal", "low"];
+const PRIORITY_ORDER = ["critical", "high", "medium", "low"];
 const RANGES = [
   { key: "7", label: "Last 7 days" },
   { key: "30", label: "Last 30 days" },
