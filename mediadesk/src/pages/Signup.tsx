@@ -122,7 +122,8 @@ export default function Signup() {
           </section>
         ) : (
           <>
-            <p className="eyebrow">Join the workspace</p>\n            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100">Create your account</h1>
+            <p className="eyebrow">Join the workspace</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100">Create your account</h1>
             <p className="mt-1 text-sm text-fog-500">
               Register with your All Saints Nairobi email address. New accounts are created as Normal Users.
             </p>
