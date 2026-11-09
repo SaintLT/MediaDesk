@@ -107,7 +107,7 @@ function BarList({ title, rows }: { title: string; rows: { label: string; value:
 
 export default function Reports() {
   const profile = useProfile();
-  const canView = profile.role === "administrator" || profile.role === "media_manager";
+  const canView = profile.role === "administrator";
 
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [categories, setCategories] = useState<Named[]>([]);
