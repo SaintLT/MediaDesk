@@ -7,23 +7,40 @@ export default {
         sans: ["Geist", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "sans-serif"],
       },
       colors: {
-        // Surfaces: black -> charcoal steps
-        ink: "#06070A",
-        charcoal: { 950: "#0B0D11", 900: "#10131A", 800: "#161A23", 700: "#1E232F", 600: "#2B3140", 500: "#3A4152" },
-        // Text
-        fog: { 100: "#EEF1F7", 300: "#C2C9D6", 500: "#8A93A6", 700: "#5C6578" },
-        // Brand: electric blue
-        electric: { 300: "#7FA6FF", 400: "#5B8CFF", 500: "#2D6BFF", 600: "#1F55E0", 700: "#1A44B5" },
-        // Priority (never colour alone: the UI also shows a label and icon)
+        ink: "rgb(var(--ink) / <alpha-value>)",
+        charcoal: {
+          950: "rgb(var(--charcoal-950) / <alpha-value>)",
+          900: "rgb(var(--charcoal-900) / <alpha-value>)",
+          800: "rgb(var(--charcoal-800) / <alpha-value>)",
+          700: "rgb(var(--charcoal-700) / <alpha-value>)",
+          600: "rgb(var(--charcoal-600) / <alpha-value>)",
+          500: "rgb(var(--charcoal-500) / <alpha-value>)",
+        },
+        fog: {
+          100: "rgb(var(--fog-100) / <alpha-value>)",
+          300: "rgb(var(--fog-300) / <alpha-value>)",
+          500: "rgb(var(--fog-500) / <alpha-value>)",
+          700: "rgb(var(--fog-700) / <alpha-value>)",
+        },
+        electric: {
+          300: "rgb(var(--electric-300) / <alpha-value>)",
+          400: "rgb(var(--electric-400) / <alpha-value>)",
+          500: "rgb(var(--electric-500) / <alpha-value>)",
+          600: "rgb(var(--electric-600) / <alpha-value>)",
+          700: "rgb(var(--electric-700) / <alpha-value>)",
+        },
         priority: { critical: "#FF4D5E", high: "#FFA33A", medium: "#4C8DFF", low: "#8691A6" },
-        // Status
         status: { done: "#34D399", hold: "#FBBF24", cancelled: "#6B7385" },
       },
-      boxShadow: { glow: "0 0 0 1px rgba(45,107,255,.5), 0 8px 30px -8px rgba(45,107,255,.45)" },
-      keyframes: {
-        rise: { from: { opacity: "0", transform: "translateY(6px)" }, to: { opacity: "1", transform: "none" } },
+      boxShadow: {
+        glow: "0 0 0 1px rgba(45,107,255,.35), 0 10px 34px -10px rgba(45,107,255,.35)",
+        card: "0 12px 34px -20px rgba(0,0,0,.28)",
       },
-      animation: { rise: "rise .22s ease-out both" },
+      keyframes: {
+        rise: { from: { opacity: "0", transform: "translateY(8px)" }, to: { opacity: "1", transform: "none" } },
+        fade: { from: { opacity: "0" }, to: { opacity: "1" } },
+      },
+      animation: { rise: "rise .28s cubic-bezier(.2,.8,.2,1) both", fade: "fade .22s ease-out both" },
     },
   },
   plugins: [],
