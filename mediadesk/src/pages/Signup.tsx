@@ -26,21 +26,20 @@ export default function Signup() {
 
   useEffect(() => {
     let cancelled = false;
-    supabase
-      .from("departments")
-      .select("id, name")
-      .eq("is_active", true)
-      .order("name")
-      .then(({ data, error: queryError }) => {
-        if (cancelled) return;
-        if (queryError) setDepartmentError("Departments could not be loaded. Please refresh and try again.");
-        else {
-          const rows = (data ?? []) as Department[];
-          setDepartments(rows);
-          if (rows.length) setDepartmentId(rows[0].id);
-        }
-        setDepartmentsLoading(false);
-      });
+    supabase.functions.invoke("public-signup", {
+      body: { action: "list_departments" },
+    }).then(({ data, error: invokeError }) => {
+      if (cancelled) return;
+      if (invokeError) {
+        setDepartmentError("Departments could not be loaded. Please refresh and try again.");
+      } else {
+        const rows = (data?.departments ?? []) as Department[];
+        setDepartments(rows);
+        if (rows.length) setDepartmentId(rows[0].id);
+        else setDepartmentError("No active departments are currently available.");
+      }
+      setDepartmentsLoading(false);
+    });
     return () => { cancelled = true; };
   }, []);
 
