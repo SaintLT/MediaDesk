@@ -1,50 +1,49 @@
 # MediaDesk
 
-MediaDesk is a web-based IT service management (ITSM) application for submitting, assigning, tracking, and resolving support tickets. It provides separate experiences for normal users and administrators, with ticket activity history and role-based access.
+MediaDesk is a web-based IT service management (ITSM) application for All Saints Nairobi. Staff submit support requests, while administrators manage, assign, track and resolve tickets.
 
 ## Features
 
-- User authentication and role-based access.
-- Submit support tickets and track their status.
-- Personal ticket list and administrator ticket management.
-- Ticket assignment and reassignment.
-- Ticket priorities: Critical, High, Medium, and Low.
-- Ticket statuses: Submitted, Under Review, Assigned, In Progress, On Hold, Completed, and Cancelled.
-- Ticket comments, attachments, and activity history.
-- Dashboard with ticket information and statistics.
-- Team management and account status controls.
-- Reports and CSV export.
-- Personal settings and dark/light appearance options.
-- Responsive interface for desktop and mobile screens.
+- Secure sign-in and organisation email-based registration
+- Administrator and Normal User roles
+- Department and ministry-aware ticket requests
+- Ticket priorities and status workflow
+- Ticket assignment and reassignment
+- Ticket comments, attachments and activity history
+- Dashboard, ticket queues and reports
+- Team and account management
+- CSV report export
+- Personal settings and persistent dark/light themes
+- Responsive desktop and mobile interface
 
 ## Technology
 
-- React 18 and TypeScript
-- Vite
+- React 18, TypeScript and Vite
 - Tailwind CSS
-- Supabase (Authentication, PostgreSQL, Row Level Security, and Storage)
-- Vercel (deployment)
-- GitHub (source control)
+- Supabase Auth, PostgreSQL, Row Level Security and Storage
+- Supabase Edge Functions for account administration and public registration
+- Vercel for deployment
 
-## Project structure
+## Repository structure
 
-The application is in the `mediadesk/` directory.
+The application lives in `mediadesk/`.
 
 ```text
 MediaDesk/
 ├── README.md
 └── mediadesk/
     ├── src/
-    │   ├── components/   Reusable interface components
-    │   ├── contexts/     Authentication and application contexts
-    │   ├── lib/          Supabase client and data-access logic
-    │   ├── pages/        Application pages
-    │   └── types/        TypeScript types and models
+    │   ├── components/       Shared UI components
+    │   ├── contexts/         Authentication and theme state
+    │   ├── lib/              Supabase client and application services
+    │   ├── pages/             Application screens
+    │   └── types/             TypeScript models
     ├── supabase/
-    │   └── migrations/   Database migration scripts
-    ├── .env.example      Required environment variable template
+    │   ├── functions/         Supabase Edge Functions
+    │   └── migrations/        SQL migration history
+    ├── .env.example
     ├── package.json
-    └── vercel.json       Vercel routing and response headers
+    └── vercel.json
 ```
 
 ## Run locally
@@ -53,9 +52,9 @@ MediaDesk/
 
 - Node.js 18 or newer
 - npm
-- A Supabase project
+- A configured Supabase project
 
-### 1. Clone the repository
+### 1. Clone and install
 
 ```bash
 git clone https://github.com/SaintLT/MediaDesk.git
@@ -65,85 +64,82 @@ npm install
 
 ### 2. Configure environment variables
 
-Create a local environment file from the example:
-
-**macOS / Linux**
-```bash
-cp .env.example .env.local
-```
+Copy `.env.example` to `.env.local`.
 
 **Windows PowerShell**
 ```powershell
 Copy-Item .env.example .env.local
 ```
 
-Add your Supabase project values to `.env.local`:
+**macOS / Linux**
+```bash
+cp .env.example .env.local
+```
 
-| Variable | Description |
+Set the following frontend variables:
+
+| Variable | Purpose |
 | --- | --- |
 | `VITE_SUPABASE_URL` | Supabase project URL |
 | `VITE_SUPABASE_ANON_KEY` | Supabase publishable/anon key |
 
-Use only the public client key in the frontend. Never expose or commit the Supabase `service_role` key or other private credentials.
+Only public client credentials belong in the frontend. Never put a Supabase service-role key or other secret in a `VITE_*` variable, commit it to Git, or expose it in browser code.
 
-### 3. Set up Supabase
+### 3. Configure Supabase
 
-Apply the SQL migration files in `supabase/migrations/` to your Supabase project in numerical order:
+MediaDesk relies on its PostgreSQL schema, Row Level Security policies, Storage bucket and Edge Functions. The SQL files in `mediadesk/supabase/migrations/` are the repository's migration history.
 
-1. `0001_schema.sql`
-2. `0002_functions.sql`
-3. `0003_rls.sql`
-4. `0004_storage_seed.sql`
+**Important:** The live application has evolved beyond parts of the original migration set. Before creating a fresh Supabase project or replaying migrations, verify that the database schema and policies match the current application code. Do not blindly apply the original migrations to an existing production database.
 
-These migrations define the database objects, database functions, access policies, attachment storage configuration, and starter data. Review the SQL and back up any existing production database before applying migrations to it.
+Deploy and configure the required Edge Functions from `mediadesk/supabase/functions/` using the Supabase CLI. Keep the service-role key in Supabase's server-side function secrets only. Public registration is restricted to the configured organisation email domain and creates Normal User accounts; administrator accounts must be provisioned by an existing administrator.
 
-### 4. Start the development server
+### 4. Start the application
 
 ```bash
 npm run dev
 ```
 
-Open the local URL printed by Vite, usually `http://localhost:5173`.
+Open the local URL printed by Vite (usually `http://localhost:5173`).
 
-## Available scripts
+## Available commands
 
-Run these commands from the `mediadesk/` directory.
+Run from `mediadesk/`:
 
-| Command | Description |
+| Command | Purpose |
 | --- | --- |
 | `npm run dev` | Start the local development server |
 | `npm run typecheck` | Run the TypeScript type check |
-| `npm run build` | Type-check the project and create the production build |
+| `npm run build` | Type-check and create the production build |
 | `npm run preview` | Preview the production build locally |
 
-Run `npm run build` before submitting changes.
+Run `npm run build` before merging or deploying changes.
 
 ## Deployment
 
 MediaDesk is configured for Vercel.
 
-1. Import the GitHub repository into Vercel.
-2. Set the project **Root Directory** to `mediadesk`.
-3. Use `npm run build` as the build command.
+1. Import this GitHub repository into Vercel.
+2. Set the project root directory to `mediadesk`.
+3. Set the build command to `npm run build`.
 4. Set the output directory to `dist`.
-5. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` under the Vercel project's environment variables.
-6. Configure the Supabase Authentication site URL and redirect URLs for the deployed application.
-7. Deploy the project.
+5. Add `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the Vercel environment variables.
+6. Configure the Supabase Auth site URL and allowed redirect URLs for the production domain.
+7. Deploy and verify sign-in, registration, ticket workflows and file access on the deployed site.
 
-The `vercel.json` configuration provides SPA route rewriting and basic security response headers. Redeploy after changing Vite environment variables.
+The `vercel.json` file provides SPA routing and response security headers.
 
-## Security
+## Security notes
 
-- Access to application data is protected by Supabase Row Level Security (RLS).
-- The frontend uses the Supabase public client key; privileged service-role credentials must remain server-side and must never be committed.
-- User access and administrative actions should be enforced by backend policies, not only by hiding interface controls.
-- Ticket attachments are stored in a private Supabase Storage bucket with access governed by policies.
+- PostgreSQL Row Level Security is the enforcement layer for data access; frontend route guards only control navigation and visibility.
+- Public registration must not grant administrator privileges.
+- Privileged account operations run through server-side Supabase Edge Functions.
+- Keep the Storage bucket private and enforce access using Storage policies.
+- Never commit `.env.local`, service-role keys, passwords or production credentials.
+- Back up the production database before schema changes or maintenance.
 
-## Development
+## Development guidelines
 
-When contributing changes:
-
-- Keep reusable UI and data-access logic in their existing shared folders.
-- Preserve existing authentication, authorization, and ticket workflows.
-- Do not commit `.env.local`, secrets, or production credentials.
-- Test affected workflows and run `npm run build` before merging changes.
+- Preserve the existing authentication, role and ticket workflow rules.
+- Make database changes through reviewed, version-controlled migrations.
+- Test affected user and administrator workflows.
+- Run `npm run typecheck` and `npm run build` before merging.
