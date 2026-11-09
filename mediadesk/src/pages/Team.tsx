@@ -180,7 +180,8 @@ export default function Team() {
   return (
     <div className="mx-auto max-w-6xl space-y-6 page-enter">
       <header>
-        <p className="eyebrow">Workspace administration</p>\n        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Team</h1>
+        <p className="eyebrow">Workspace administration</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Team</h1>
         <p className="text-sm text-fog-500">
           {members.length} members · {members.filter((m) => m.is_active).length} active
         </p>
