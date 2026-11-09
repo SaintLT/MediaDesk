@@ -4,7 +4,7 @@ import { PRIORITY_LABELS, STATUS_LABELS } from "@/types/db";
 const PRIORITY_STYLES: Record<Priority, string> = {
   critical: 'bg-red-500/15 text-red-300 ring-red-500/30',
   high: 'bg-orange-500/15 text-orange-300 ring-orange-500/30',
-  normal: 'bg-blue-500/15 text-blue-300 ring-blue-500/30',
+  medium: 'bg-blue-500/15 text-blue-300 ring-blue-500/30',
   low: 'bg-zinc-500/15 text-zinc-300 ring-zinc-500/30',
 };
 
