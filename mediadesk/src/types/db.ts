@@ -1,13 +1,11 @@
-export type Role = "administrator" | "media_manager" | "media_member" | "requester";
+export type Role = "administrator" | "normal_user";
 export type Priority = "critical" | "high" | "normal" | "low";
 export type Status =
   | "submitted" | "under_review" | "assigned" | "in_progress" | "on_hold" | "completed" | "cancelled";
 
 export const ROLE_LABELS: Record<Role, string> = {
   administrator: "Administrator",
-  media_manager: "Media Manager",
-  media_member: "Media Team Member",
-  requester: "Requester",
+  normal_user: "Normal User",
 };
 
 // Highest first: matches the database enum order, so sorting by it gives Critical -> Low.
