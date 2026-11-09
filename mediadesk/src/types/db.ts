@@ -1,5 +1,5 @@
 export type Role = "administrator" | "normal_user";
-export type Priority = "critical" | "high" | "normal" | "low";
+export type Priority = "critical" | "high" | "medium" | "low";
 export type Status =
   | "submitted" | "under_review" | "assigned" | "in_progress" | "on_hold" | "completed" | "cancelled";
 
@@ -9,9 +9,9 @@ export const ROLE_LABELS: Record<Role, string> = {
 };
 
 // Highest first: matches the database enum order, so sorting by it gives Critical -> Low.
-export const PRIORITIES: Priority[] = ["critical", "high", "normal", "low"];
+export const PRIORITIES: Priority[] = ["critical", "high", "medium", "low"];
 export const PRIORITY_LABELS: Record<Priority, string> = {
-  critical: "Critical", high: "High", normal: "Normal", low: "Low",
+  critical: "Critical", high: "High", medium: "Medium", low: "Low",
 };
 
 export const STATUSES: Status[] = [
