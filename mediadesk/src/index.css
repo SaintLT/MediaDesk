@@ -81,3 +81,18 @@ html[data-theme="light"] {
   html[data-theme="light"] .divide-zinc-900 > :not([hidden]) ~ :not([hidden]) { border-color: rgb(224 230 240) !important; }
   html[data-theme="light"] .hover\:bg-zinc-800\/60:hover { background-color: rgb(240 243 249) !important; }
 }
+
+
+@layer base {
+  input, select, textarea { color-scheme: inherit; }
+  input::placeholder, textarea::placeholder { opacity: .8; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: rgb(var(--charcoal-600)); border: 2px solid rgb(var(--charcoal-950)); border-radius: 999px; }
+  ::-webkit-scrollbar-track { background: rgb(var(--charcoal-950)); }
+  html[data-theme="light"] body { background-image: radial-gradient(ellipse at 70% -20%, rgba(36,94,224,.07), transparent 45%); }
+}
+@layer utilities {
+  .animate-rise { animation: rise .32s cubic-bezier(.2,.8,.2,1) both; }
+  .shadow-card { box-shadow: 0 12px 34px -20px rgba(0,0,0,.28); }
+  html[data-theme="light"] .shadow-card { box-shadow: 0 12px 32px -22px rgba(25,35,54,.25); }
+}
