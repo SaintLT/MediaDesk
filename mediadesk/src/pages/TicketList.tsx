@@ -31,9 +31,9 @@ export default function TicketList({ scope, title, subtitle }: Props) {
   }, [tickets, search, statusFilter]);
   const fmt = (d: string | null) => d ? new Date(d).toLocaleDateString(undefined, { timeZone: "UTC", day: "numeric", month: "short", year: "numeric" }) : "—";
   const openCount = tickets.filter((t) => !["completed", "cancelled"].includes(t.status)).length;
-  return <div className="space-y-6 animate-rise">
+  return <div className="space-y-6 page-enter">
     <PageHeader title={title} description={subtitle} actions={<span className="rounded-full border border-charcoal-600 bg-charcoal-900 px-3 py-1.5 text-xs font-medium text-fog-300">{tickets.length} total · {openCount} open</span>} />
-    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950 p-4 shadow-card">
+    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card sm:p-6">
       <div className="flex flex-col gap-3 md:flex-row">
         <label className="relative flex-1"><Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-fog-500" /><input aria-label="Search tickets" className="h-11 w-full rounded-xl border border-charcoal-600 bg-charcoal-900 pl-10 pr-3 text-sm text-fog-100 outline-none transition placeholder:text-fog-700 focus:border-electric-400 focus:ring-2 focus:ring-electric-500/15" placeholder="Search by title, ticket number or requester…" value={search} onChange={(e) => setSearch(e.target.value)} /></label>
         <label className="relative md:w-56"><SlidersHorizontal className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-fog-500" /><select aria-label="Filter by status" className="h-11 w-full appearance-none rounded-xl border border-charcoal-600 bg-charcoal-900 pl-10 pr-3 text-sm text-fog-100 outline-none focus:border-electric-400" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}><option value="">All statuses</option>{STATUSES.map((s) => <option key={s} value={s}>{STATUS_LABELS[s]}</option>)}</select></label>
@@ -41,7 +41,7 @@ export default function TicketList({ scope, title, subtitle }: Props) {
       <div className="mt-3 flex items-center justify-between text-xs text-fog-500"><span>{visible.length} result{visible.length === 1 ? "" : "s"}</span><button type="button" onClick={() => { setSearch(""); setStatusFilter(""); }} className="font-medium text-electric-300 hover:text-electric-200">Clear filters</button></div>
     </section>
     {error && <p role="alert" className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-sm text-red-300">{error}</p>}
-    <section className="overflow-hidden rounded-2xl border border-charcoal-700 bg-charcoal-950 shadow-card">
+    <section className="overflow-hidden rounded-2xl border border-charcoal-700 bg-charcoal-950 shadow-card transition-colors duration-200">
       <div className="hidden grid-cols-[minmax(0,1.6fr)_minmax(110px,.7fr)_minmax(120px,.8fr)_minmax(140px,1fr)_minmax(110px,.7fr)] gap-4 border-b border-charcoal-700 bg-charcoal-900/70 px-5 py-3 text-[10px] font-bold uppercase tracking-[.16em] text-fog-500 lg:grid">
         <span>Ticket</span><span>Priority</span><span>Status</span>{scope !== "mine" && <span>Requester</span>}{scope === "mine" && <span>Category</span>}<span>Needed by</span>
       </div>
