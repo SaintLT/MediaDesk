@@ -111,3 +111,64 @@ html[data-theme="light"] {
   html[data-theme="light"] .text-blue-400 { color: #1d4ed8 !important; }
   html[data-theme="light"] .text-red-400 { color: #b91c1c !important; }
 }
+
+
+/* MediaDesk V2 finishing layer */
+@layer base {
+  body { min-height: 100vh; }
+  button, a, input, select, textarea {
+    transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+  input, select, textarea {
+    min-width: 0;
+  }
+  select option, select optgroup {
+    background: rgb(var(--charcoal-950));
+    color: rgb(var(--fog-100));
+  }
+}
+@layer utilities {
+  .surface-panel {
+    border: 1px solid rgb(var(--charcoal-700) / .8);
+    background: rgb(var(--charcoal-950) / .94);
+    box-shadow: 0 18px 50px -34px rgba(0,0,0,.42);
+    backdrop-filter: blur(14px);
+  }
+  .surface-muted {
+    border: 1px solid rgb(var(--charcoal-700) / .72);
+    background: rgb(var(--charcoal-900) / .72);
+  }
+  .eyebrow {
+    color: rgb(var(--electric-300));
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+  }
+  .page-enter { animation: page-enter .38s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes page-enter {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  html[data-theme="light"] .surface-panel {
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 18px 48px -34px rgba(25,35,54,.24);
+  }
+  html[data-theme="light"] .surface-muted {
+    background: rgba(249,250,253,.9);
+  }
+  html[data-theme="light"] .bg-gradient-to-br.from-electric-500\/10 {
+    --tw-gradient-from: rgb(36 94 224 / .08) var(--tw-gradient-from-position);
+  }
+  html[data-theme="light"] .placeholder\:text-fog-700::placeholder {
+    color: rgb(139 151 171);
+  }
+  html[data-theme="light"] .text-fog-700 { color: rgb(139 151 171); }
+  html[data-theme="light"] .border-charcoal-700\/80 { border-color: rgb(224 230 240 / .9); }
+  html[data-theme="light"] .border-charcoal-700\/60 { border-color: rgb(224 230 240 / .8); }
+}
+@media (max-width: 640px) {
+  main#main .py-6 { padding-top: 1.15rem; }
+}
