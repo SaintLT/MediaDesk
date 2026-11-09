@@ -178,9 +178,9 @@ export default function Team() {
   if (loadError) return <p className="p-6 text-sm text-red-400">Could not load team: {loadError}</p>;
 
   return (
-    <div className="mx-auto max-w-6xl space-y-5 p-6">
+    <div className="mx-auto max-w-6xl space-y-6 page-enter">
       <header>
-        <h1 className="text-3xl font-semibold tracking-tight text-fog-100">Team</h1>
+        <p className="eyebrow">Workspace administration</p>\n        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Team</h1>
         <p className="text-sm text-fog-500">
           {members.length} members · {members.filter((m) => m.is_active).length} active
         </p>
