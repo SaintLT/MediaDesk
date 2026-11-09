@@ -38,11 +38,11 @@ import type {
 } from "@/types/ticket";
 
 const field =
-  "w-full rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/40";
+  "w-full rounded-lg border border-charcoal-700 bg-charcoal-900 px-3 py-2 text-sm text-fog-100 placeholder-zinc-500 focus:border-electric-400 focus:outline-none focus:ring-2 focus:ring-electric-500/20";
 const button =
-  "rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-60";
-const label = "mb-1 block text-sm font-medium text-zinc-300";
-const formBox = "space-y-2 border-t border-zinc-800 pt-4 first:border-0 first:pt-0";
+  "rounded-lg bg-electric-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-electric-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 disabled:cursor-not-allowed disabled:opacity-60";
+const label = "mb-1 block text-sm font-medium text-fog-300";
+const formBox = "space-y-2 border-t border-charcoal-700 pt-4 first:border-0 first:pt-0";
 
 const NOTE_MIN = 5;
 
@@ -91,8 +91,8 @@ function describeActivity(a: ActivityEntry): string {
 
 function Card({ title, children }: { title: string; children: ReactNode }) {
   return (
-    <section className="rounded-xl border border-zinc-800 bg-zinc-950 p-5">
-      <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-zinc-400">{title}</h2>
+    <section className="rounded-2xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card sm:p-6">
+      <h2 className="mb-3 text-xs font-bold uppercase tracking-[.14em] text-fog-500">{title}</h2>
       {children}
     </section>
   );
@@ -101,8 +101,8 @@ function Card({ title, children }: { title: string; children: ReactNode }) {
 function Row({ name, children }: { name: string; children: ReactNode }) {
   return (
     <div className="flex justify-between gap-4 py-1.5 text-sm">
-      <dt className="text-zinc-500">{name}</dt>
-      <dd className="text-right text-zinc-200">{children}</dd>
+      <dt className="text-fog-500">{name}</dt>
+      <dd className="text-right text-fog-300">{children}</dd>
     </div>
   );
 }
@@ -172,7 +172,7 @@ export default function TicketDetail() {
     load().finally(() => setLoading(false));
   }, [load]);
 
-  if (loading) return <p className="text-sm text-zinc-500">Loading ticket…</p>;
+  if (loading) return <p className="text-sm text-fog-500">Loading ticket…</p>;
 
   if (loadError) {
     return (
@@ -189,7 +189,7 @@ export default function TicketDetail() {
     return (
       <div>
         <h1 className="text-xl font-semibold text-white">Ticket not found</h1>
-        <p className="mt-1 text-sm text-zinc-400">
+        <p className="mt-1 text-sm text-fog-500">
           It may not exist, or you may not have access to it.
         </p>
         <button type="button" onClick={() => navigate(-1)} className={`${button} mt-4`}>
@@ -325,16 +325,16 @@ export default function TicketDetail() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl">
+    <div className="mx-auto max-w-6xl space-y-2 animate-rise">
       <button
         type="button"
         onClick={() => navigate(-1)}
-        className="text-sm text-zinc-400 hover:text-zinc-200"
+        className="text-sm text-fog-500 hover:text-fog-300"
       >
         ← Back
       </button>
 
-      <div className="mt-3 flex flex-wrap items-start justify-between gap-3">
+      <div className="mt-4 flex flex-wrap items-start justify-between gap-4 rounded-3xl border border-charcoal-700 bg-charcoal-950 p-5 shadow-card sm:p-7">
         <div>
           <p className="font-mono text-xs text-blue-400">{ticket.ticket_number}</p>
           <h1 className="mt-1 text-2xl font-semibold text-white">{ticket.title}</h1>
@@ -365,7 +365,7 @@ export default function TicketDetail() {
       <div className="mt-6 grid gap-6 lg:grid-cols-3">
         <div className="space-y-6 lg:col-span-2">
           <Card title="Description">
-            <p className="whitespace-pre-wrap text-sm text-zinc-300">{ticket.description}</p>
+            <p className="whitespace-pre-wrap text-sm text-fog-300">{ticket.description}</p>
           </Card>
 
           {deliverables.length > 0 && (
@@ -374,7 +374,7 @@ export default function TicketDetail() {
                 {deliverables.map((d) => (
                   <span
                     key={d}
-                    className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1 text-xs text-zinc-200"
+                    className="rounded-full border border-charcoal-600 bg-charcoal-900 px-3 py-1 text-xs text-fog-300"
                   >
                     {d}
                   </span>
@@ -385,9 +385,9 @@ export default function TicketDetail() {
 
           <Card title={`Attachments (${attachments.length})`}>
             {attachments.length === 0 ? (
-              <p className="text-sm text-zinc-500">No files attached.</p>
+              <p className="text-sm text-fog-500">No files attached.</p>
             ) : (
-              <ul className="divide-y divide-zinc-900">
+              <ul className="divide-y divide-charcoal-700">
                 {attachments.map((a) => (
                   <li key={a.id} className="flex items-center justify-between gap-3 py-2 text-sm">
                     <div className="min-w-0">
@@ -398,7 +398,7 @@ export default function TicketDetail() {
                       >
                         {a.file_name}
                       </button>
-                      <p className="text-xs text-zinc-500">
+                      <p className="text-xs text-fog-500">
                         {formatBytes(a.file_size)} · {a.uploader_name ?? "Unknown user"} ·{" "}
                         {fmtDateTime(a.created_at)}
                       </p>
@@ -408,7 +408,7 @@ export default function TicketDetail() {
                         type="button"
                         disabled={busy}
                         onClick={() => removeAttachment(a)}
-                        className="shrink-0 text-xs text-zinc-400 hover:text-red-300 disabled:opacity-60"
+                        className="shrink-0 text-xs text-fog-500 hover:text-red-300 disabled:opacity-60"
                       >
                         Remove
                       </button>
@@ -419,7 +419,7 @@ export default function TicketDetail() {
             )}
 
             {canAttach && (
-              <div className="mt-4 space-y-2 border-t border-zinc-800 pt-4">
+              <div className="mt-4 space-y-2 border-t border-charcoal-700 pt-4">
                 <label htmlFor="attach" className={label}>
                   Add files
                 </label>
@@ -430,9 +430,9 @@ export default function TicketDetail() {
                   accept={FILE_ACCEPT}
                   onChange={pickFiles}
                   disabled={busy || pendingFiles.length >= MAX_FILES}
-                  className="block w-full text-sm text-zinc-400 file:mr-3 file:rounded-lg file:border-0 file:bg-zinc-800 file:px-3 file:py-2 file:text-sm file:text-zinc-200 hover:file:bg-zinc-700 disabled:opacity-50"
+                  className="block w-full text-sm text-fog-500 file:mr-3 file:rounded-lg file:border-0 file:bg-charcoal-800 file:px-3 file:py-2 file:text-sm file:text-fog-300 hover:file:bg-zinc-700 disabled:opacity-50"
                 />
-                <p className="text-xs text-zinc-500">
+                <p className="text-xs text-fog-500">
                   Up to {MAX_FILES} files at a time, 10 MB each.
                 </p>
                 {pendingFiles.length > 0 && (
@@ -440,10 +440,10 @@ export default function TicketDetail() {
                     {pendingFiles.map((f, i) => (
                       <li
                         key={`${f.name}-${i}`}
-                        className="flex items-center justify-between gap-3 rounded-lg bg-zinc-900 px-3 py-1.5 text-sm"
+                        className="flex items-center justify-between gap-3 rounded-lg bg-charcoal-900 px-3 py-1.5 text-sm"
                       >
-                        <span className="truncate text-zinc-200">
-                          {f.name} <span className="text-zinc-500">· {formatBytes(f.size)}</span>
+                        <span className="truncate text-fog-300">
+                          {f.name} <span className="text-fog-500">· {formatBytes(f.size)}</span>
                         </span>
                         <button
                           type="button"
@@ -451,7 +451,7 @@ export default function TicketDetail() {
                             setPendingFiles((current) => current.filter((_, idx) => idx !== i));
                             setFileErrors([]);
                           }}
-                          className="shrink-0 text-xs text-zinc-400 hover:text-red-300"
+                          className="shrink-0 text-xs text-fog-500 hover:text-red-300"
                         >
                           Remove
                         </button>
@@ -484,23 +484,23 @@ export default function TicketDetail() {
 
           {ticket.resolution_note && (
             <Card title="Resolution note">
-              <p className="whitespace-pre-wrap text-sm text-zinc-300">{ticket.resolution_note}</p>
+              <p className="whitespace-pre-wrap text-sm text-fog-300">{ticket.resolution_note}</p>
             </Card>
           )}
 
           <Card title={`Comments (${comments.length})`}>
             {comments.length === 0 ? (
-              <p className="text-sm text-zinc-500">No comments yet.</p>
+              <p className="text-sm text-fog-500">No comments yet.</p>
             ) : (
               <ul className="space-y-4">
                 {comments.map((c) => (
                   <li key={c.id} className="text-sm">
-                    <p className="text-zinc-400">
-                      <span className="font-medium text-zinc-100">{c.author_name ?? "Unknown user"}</span>
+                    <p className="text-fog-500">
+                      <span className="font-medium text-fog-100">{c.author_name ?? "Unknown user"}</span>
                       {" · "}
                       {fmtDateTime(c.created_at)}
                     </p>
-                    <p className="mt-1 whitespace-pre-wrap text-zinc-300">{c.body}</p>
+                    <p className="mt-1 whitespace-pre-wrap text-fog-300">{c.body}</p>
                   </li>
                 ))}
               </ul>
@@ -528,21 +528,21 @@ export default function TicketDetail() {
 
           <Card title="Activity">
             {activity.length === 0 ? (
-              <p className="text-sm text-zinc-500">No activity yet.</p>
+              <p className="text-sm text-fog-500">No activity yet.</p>
             ) : (
               <ul className="space-y-4">
                 {activity.map((a) => (
                   <li key={a.id} className="flex gap-3 text-sm">
                     <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-zinc-600" aria-hidden />
                     <div>
-                      <p className="text-zinc-300">
-                        <span className="font-medium text-zinc-100">{a.actor_name ?? "System"}</span>{" "}
+                      <p className="text-fog-300">
+                        <span className="font-medium text-fog-100">{a.actor_name ?? "System"}</span>{" "}
                         {describeActivity(a)}
                       </p>
                       {a.note && a.type !== "created" && (
-                        <p className="mt-0.5 whitespace-pre-wrap text-xs text-zinc-500">{a.note}</p>
+                        <p className="mt-0.5 whitespace-pre-wrap text-xs text-fog-500">{a.note}</p>
                       )}
-                      <p className="text-xs text-zinc-500">{fmtDateTime(a.created_at)}</p>
+                      <p className="text-xs text-fog-500">{fmtDateTime(a.created_at)}</p>
                     </div>
                   </li>
                 ))}
@@ -553,13 +553,13 @@ export default function TicketDetail() {
 
         <div className="space-y-6">
           <Card title="Details">
-            <dl className="divide-y divide-zinc-900">
+            <dl className="divide-y divide-charcoal-700">
               <Row name="Category">{ticket.category_name}</Row>
               {ticket.ministry_name && <Row name="Ministry">{ticket.ministry_name}</Row>}
               <Row name="Requester">
                 {ticket.requester_name ?? "—"}
                 {ticket.requester_department && (
-                  <span className="block text-xs text-zinc-500">{ticket.requester_department}</span>
+                  <span className="block text-xs text-fog-500">{ticket.requester_department}</span>
                 )}
               </Row>
               {ticket.requested_for && <Row name="On behalf of">{ticket.requested_for}</Row>}
@@ -595,7 +595,7 @@ export default function TicketDetail() {
                         </option>
                       ))}
                     </select>
-                    <p className="text-xs text-zinc-500">
+                    <p className="text-xs text-fog-500">
                       Assigning a new ticket moves it to Assigned automatically.
                     </p>
                     <button
@@ -667,7 +667,7 @@ export default function TicketDetail() {
                           onChange={(e) => setResolution(e.target.value)}
                           placeholder="What was done to resolve this?"
                         />
-                        <p className="mt-1 text-xs text-zinc-500">
+                        <p className="mt-1 text-xs text-fog-500">
                           Required, at least {NOTE_MIN} characters.
                         </p>
                       </div>
