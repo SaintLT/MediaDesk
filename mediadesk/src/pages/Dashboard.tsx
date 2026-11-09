@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 import { useProfile } from "@/contexts/AuthContext";
 import { ArrowUpRight, CalendarClock, CheckCircle2, CircleAlert, Clock3, Plus, Ticket as TicketIcon, TrendingUp } from "lucide-react";
-import { PriorityBadge, StatusBadge } from "@/components/tickets/Badges";
+import { PriorityBadge } from "@/components/tickets/Badges";
 
 type Ticket = {
   id: string; ticket_number: string | null; title: string; status: string; priority: string;
@@ -71,7 +71,6 @@ export default function Dashboard() {
     const today = new Date().toLocaleDateString("en-CA", { timeZone: "Africa/Nairobi" });
     const open = tickets.filter((t) => !CLOSED.includes(t.status));
     const count = (list: Ticket[], status: string) => list.filter((t) => t.status === status).length;
-    const recent = tickets.slice(0, 6);
     if (isAdmin) {
       const unassigned = open.filter((t) => !t.assigned_to && ["submitted", "under_review"].includes(t.status));
       const overdue = open.filter((t) => t.due_date && t.due_date < today);
