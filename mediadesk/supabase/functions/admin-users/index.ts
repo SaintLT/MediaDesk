@@ -77,6 +77,15 @@ Deno.serve(async (req) => {
       if (!ROLES.includes(role)) return fail("Choose a valid role.");
       if (password.length < 10) return fail("The temporary password must be at least 10 characters.");
 
+      const { data: department, error: departmentError } = await admin
+        .from("departments")
+        .select("id")
+        .eq("id", departmentId)
+        .eq("is_active", true)
+        .maybeSingle();
+      if (departmentError) return fail("Could not validate the selected department.", 500);
+      if (!department) return fail("Choose an active department.");
+
       const { data: created, error: createError } = await admin.auth.admin.createUser({
         email,
         password,
