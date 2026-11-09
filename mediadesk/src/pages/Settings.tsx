@@ -488,7 +488,8 @@ export default function Settings() {
   return (
     <div className="mx-auto max-w-5xl space-y-6 page-enter">
       <div>
-        <p className="eyebrow">Workspace preferences</p>\n        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Settings</h1>
+        <p className="eyebrow">Workspace preferences</p>
+        <h1 className="mt-2 text-3xl font-semibold tracking-tight text-fog-100 sm:text-4xl">Settings</h1>
         <p className="mt-1 text-sm text-fog-500">
           {isAdmin
             ? "Manage your account, appearance and the lists used across MediaDesk."
